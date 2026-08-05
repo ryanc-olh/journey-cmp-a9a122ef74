@@ -21,7 +21,6 @@
   .rate{font-weight:700;font-size:14px;font-variant-numeric:tabular-nums}
   .id{font-weight:700;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px;color:var(--ink)}
   .mut{color:var(--mut)}
-  .live{background:#eef4fb}
   .gapr{background:#f6f3fa}
   .note{font-size:12px;color:var(--mut);margin-top:9px}
   .warn{font-size:12.5px;color:var(--amb);background:#fdf8ee;border:1px solid #efe0c4;border-radius:8px;padding:9px 12px;margin:14px 0}
@@ -39,14 +38,13 @@
   .fb.ok{background:#eef4fb;border-color:#cfe0f3}
   .fb.no{background:#faf6f0;border-color:#ecdfcb}
   .scen{border:1px solid var(--bd);border-radius:10px;padding:13px 15px;margin:12px 0}
-  .scen.livec{border-color:#9dc0e8;background:#fbfdff}
   .scen.gapc{border-color:#cbbde0;background:#fcfbfe}
   .scen h4{margin:0 0 3px;font-size:14px;font-weight:600}
   .scen .fr{font-size:12.5px;color:var(--sec);margin:6px 0 0;font-variant-numeric:tabular-nums}
   .scen .fr b{color:var(--ink)}
   .scen .cm{font-size:12.5px;color:var(--sec);margin:7px 0 0}
   .pill{display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.03em;padding:2px 6px;border-radius:4px;margin-left:7px;vertical-align:2px}
-  .pill.l{background:#dceafa;color:#1b4f8c} .pill.g{background:#ece5f6;color:#553d80}
+  .pill.g{background:#ece5f6;color:#553d80}
   .foot{font-size:11.5px;color:var(--mut);margin-top:36px;border-top:1px solid var(--bd);padding-top:14px}
   .foot b{color:var(--sec)} .foot li{margin-bottom:6px}
   @media(max-width:700px){.inout{grid-template-columns:1fr}}
@@ -87,7 +85,7 @@
 <div class="lede">Each unit counts a different thing. None is wrong; they answer different questions.</div>
 <table><thead><tr><th class="l">Unit</th><th class="l">Definition</th><th>Denominator</th></tr></thead><tbody>
 <tr><td class="l"><b>A — Calls</b></td><td class="l">Patient-initiated dials that reached the hold queue. <b>Excludes callbacks</b>, which are our outbound dials, not patient calls.</td><td><b>3,094</b></td></tr>
-<tr><td class="l"><b>B — Legs</b></td><td class="l">Every contact record carrying a queue timestamp — held calls <b>plus</b> the callbacks we placed. This is what the client dashboard shows as "Inbound Volume".</td><td><b>8,866</b></td></tr>
+<tr><td class="l"><b>B — Legs</b></td><td class="l">Every contact record carrying a queue timestamp — held calls <b>plus</b> the callbacks we placed.</td><td><b>8,866</b></td></tr>
 <tr><td class="l"><b>C — Unique patients</b></td><td class="l">Distinct people who reached a queue by any path, counted <b>once</b> regardless of how many times they called or how many callbacks we placed.</td><td><b>6,197</b></td></tr>
 </tbody></table>
 <div class="note">B = A + callbacks (3,094 + 5,772 = 8,866). C is not a subset or sum of the others — it is a different unit entirely.</div>
@@ -137,10 +135,10 @@
 <tr class="gapr"><td class="l"><span class="id">A2</span></td><td class="l">Calls</td><td class="l">All callbacks count</td><td class="l">Held calls with no agent, whose patient never got a callback</td><td class="mut">not derivable</td><td>3,094</td><td class="mut">&mdash;</td></tr>
 <tr><td class="l"><span class="id">B1</span></td><td class="l">Legs</td><td class="l">Connected only</td><td class="l">All legs with no agent</td><td>2,775</td><td>8,866</td><td class="rate">31.3%</td></tr>
 <tr><td class="l"><span class="id">B2</span></td><td class="l">Legs</td><td class="l">All callbacks count</td><td class="l">Held legs with no agent only</td><td>2,214</td><td>8,866</td><td class="rate">25.0%</td></tr>
-<tr class="live"><td class="l"><span class="id">C1</span></td><td class="l">Unique patients</td><td class="l">Connected only</td><td class="l">Patients who never spoke to an agent</td><td>1,176</td><td>6,197</td><td class="rate">19.0%</td></tr>
+<tr><td class="l"><span class="id">C1</span></td><td class="l">Unique patients</td><td class="l">Connected only</td><td class="l">Patients who never spoke to an agent</td><td>1,176</td><td>6,197</td><td class="rate">19.0%</td></tr>
 <tr><td class="l"><span class="id">C2</span></td><td class="l">Unique patients</td><td class="l">All callbacks count</td><td class="l">Patients who never spoke <b>and</b> never had a callback placed</td><td>970</td><td>6,197</td><td class="rate">15.7%</td></tr>
 </tbody></table>
-<div class="note"><span class="pill l">C1</span> is the definition currently published on the Embody client dashboard. <span class="pill g">A2</span> is the one cell that cannot be computed from data we hold today — see below.</div>
+<div class="note"><span class="pill g">A2</span> is the one cell that cannot be computed from data we hold today — see below.</div>
 
 <div class="sec">Each scenario in full</div>
 
@@ -165,7 +163,7 @@
 <div class="cm">Same as B1 with the 561 non-connecting callbacks moved from failures to successes.<br>
 <b>Note the asymmetry:</b> all 5,772 callbacks stay in the denominator while none can be a failure, so the denominator can only grow the more we dial. This is the most easily moved of the six.</div></div>
 
-<div class="scen livec"><h4><span class="id">C1</span> &nbsp;Unique patients · connected only &nbsp;<b>19.0%</b><span class="pill l">CURRENTLY PUBLISHED</span></h4>
+<div class="scen"><h4><span class="id">C1</span> &nbsp;Unique patients · connected only &nbsp;<b>19.0%</b></h4>
 <div class="fr">1,176 patients who never spoke &divide; <b>6,197</b> patients who reached a queue</div>
 <div class="cm"><b>Counts:</b> of the people we owed a conversation, how many never got one — regardless of path or number of attempts.<br>
 <b>Cannot be moved by dialling more</b>, because each patient appears once whether we called them once or five times.<br>
@@ -196,10 +194,10 @@
 <div class="note">78% of callback patients carry no hold-queue record. Either the IVR offers the callback before enqueueing them (in which case they never waited, and D is a genuine sub-population), or the record loses its queue timestamp when the contact converts to a callback (in which case they did wait, and D collapses into C). This is settled by inspecting <code>queue_name</code> and the flow on those legs — not yet done.</div>
 
 <div class="foot"><b>Method &amp; known limits</b><ul>
-<li><b>One day only.</b> Tue 2026-08-04, Central Time. Not a trailing average. The client dashboard's headline card is a <b>trailing 7-day</b> figure, which deduplicates patients across the whole week and therefore reads lower than any single bad day — 12% for Jul 29–Aug 4 against 19.0% for this Tuesday alone.</li>
+<li><b>One day only.</b> Tue 2026-08-04, Central Time. Not a trailing average. Any multi-day window deduplicates patients across the whole window, so a weekly figure reads lower than a single bad day inside it — a patient who fails on Tuesday and gets through on Wednesday counts as served for the week. Rates from different window lengths are not comparable.</li>
 <li><b>"No agent" is not the same as "abandoned."</b> The 2,214 figure counts held legs with no <code>agent_connected_to_agent_timestamp</code>. It includes patients who left the hold queue deliberately to take a callback. Every call-based and leg-based scenario inherits this; the patient-based ones do not, because those patients appear as served.</li>
 <li><b>IDV / queue composition unverified.</b> The in-scope filter is "carries a queue timestamp", which is queue-agnostic. Whether any of the 3,094 held legs sit in an identity-verification queue rather than an agent queue has not been checked. If such a queue exists, the hold-queue counts here are overstated.</li>
-<li><b>Mirror drift.</b> The Connect&rarr;Zoho mirror is refreshed through the day. This page's leg counts were read before the 14:44 build, which recorded 8,870 legs and 6,089 connected for the same day — a four-leg difference that does not change any rate above at one decimal.</li>
+<li><b>Mirror drift.</b> The Connect&rarr;Zoho mirror is refreshed through the day, so the same query can return slightly different counts when re-run. A later read of this day returned 8,870 legs and 6,089 connected against the 8,866 / 6,091 used here — four legs, and no change to any rate above at one decimal.</li>
 <li><b>Voice only.</b> Chat and email are excluded entirely. Embody runs no chat.</li>
 <li><b>Patient identity</b> is <code>patient_id</code> on the Connect record, deduplicated within the day. A patient with no <code>patient_id</code> cannot be counted in the patient-based scenarios; voice linkage runs near 100%.</li>
 </ul>
