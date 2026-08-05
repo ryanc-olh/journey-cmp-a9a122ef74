@@ -53,7 +53,16 @@
 
 <h1>Embody — Voice Abandonment Scenarios<span class="badge">INTERNAL</span></h1>
 <div class="sub">Single day: <b>Tuesday 2026-08-04</b> · Central Time · voice only</div>
-<div class="read"><b>How to read this page.</b> There are eight defensible ways to compute voice abandonment for the same day. <b>The matrix immediately below is the whole answer</b> — every section after it is the derivation. All eight use the same source data and the same scope rule; they differ only in <b>what they count</b> (calls, contact records, or people), <b>who is in the population</b>, and <b>whether a callback we placed counts as service even if it never connected</b>.</div>
+<div class="read"><b>How to read this page.</b> There are eight defensible ways to compute voice abandonment for the same day. One short table below defines the three units; <b>the eight-scenario matrix right after it is the whole answer</b> — every section beyond that is the derivation. All eight use the same source data and the same scope rule; they differ only in <b>what they count</b> (calls, contact records, or people), <b>who is in the population</b>, and <b>whether a callback we placed counts as service even if it never connected</b>.</div>
+
+<div class="sec">The three things we can count</div>
+<div class="lede">Every scenario counts one of these three. They are different units, so their totals are <b>not</b> comparable to each other — this is the "Counting" column in the matrix below.</div>
+<table><thead><tr><th class="l">Unit</th><th class="l">One row is…</th><th>Total on Tue Aug 4</th><th class="l">Patients it covers</th></tr></thead><tbody>
+<tr><td class="l"><b>Calls</b></td><td class="l">One <b>patient dial</b> that entered the hold queue. Callbacks are ours, not the patient's, so they are not calls.</td><td><b>3,094</b></td><td class="l">2,630 &mdash; <b>42%</b> of the population</td></tr>
+<tr><td class="l"><b>Records</b></td><td class="l">One <b>queued contact record</b> in Amazon Connect &mdash; either a held call <i>or</i> a callback we placed. One patient can generate several.</td><td><b>8,866</b></td><td class="l">6,197 &mdash; all of them</td></tr>
+<tr><td class="l"><b>People</b></td><td class="l">One <b>unique patient</b>, counted once no matter how many times they called or how many callbacks we placed for them.</td><td><b>6,197</b></td><td class="l">6,197 &mdash; all of them</td></tr>
+</tbody></table>
+<div class="note"><b>Records = Calls + callbacks</b> (3,094 + 5,772 = 8,866). <b>People is not a subset or a sum of either</b> — it is a different unit. Only the Calls unit leaves patients out: the 3,567 who took a callback without ever waiting on hold contribute zero calls. Full reconciliation further down.</div>
 
 <div class="sec">The eight scenarios</div>
 <table class="mx"><thead><tr><th class="l">ID</th><th class="l">Counting</th><th class="l">Who is in the population</th><th class="l">What counts as an abandon</th><th>Abandons</th><th>Population size</th><th>Abandon rate</th></tr></thead><tbody>
