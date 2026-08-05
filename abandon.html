@@ -21,6 +21,7 @@
   .rate{font-weight:700;font-size:14px;font-variant-numeric:tabular-nums}
   .id{font-weight:700;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px;color:var(--ink)}
   .mut{color:var(--mut)}
+  .sub2{font-size:11px;color:var(--mut);font-weight:400}
   .gapr{background:#f6f3fa}
   .note{font-size:12px;color:var(--mut);margin-top:9px}
   .warn{font-size:12.5px;color:var(--amb);background:#fdf8ee;border:1px solid #efe0c4;border-radius:8px;padding:9px 12px;margin:14px 0}
@@ -83,12 +84,22 @@
 
 <div class="sec">The three units</div>
 <div class="lede">Each unit counts a different thing. None is wrong; they answer different questions.</div>
-<table><thead><tr><th class="l">Unit</th><th class="l">Definition</th><th>Denominator</th></tr></thead><tbody>
-<tr><td class="l"><b>A — Calls</b></td><td class="l">Patient-initiated dials that reached the hold queue. <b>Excludes callbacks</b>, which are our outbound dials, not patient calls.</td><td><b>3,094</b></td></tr>
-<tr><td class="l"><b>B — Legs</b></td><td class="l">Every contact record carrying a queue timestamp — held calls <b>plus</b> the callbacks we placed.</td><td><b>8,866</b></td></tr>
-<tr><td class="l"><b>C — Unique patients</b></td><td class="l">Distinct people who reached a queue by any path, counted <b>once</b> regardless of how many times they called or how many callbacks we placed.</td><td><b>6,197</b></td></tr>
+<table><thead><tr><th class="l">Unit</th><th class="l">Definition</th><th>Denominator</th><th>Patients it covers</th></tr></thead><tbody>
+<tr><td class="l"><b>A — Calls</b></td><td class="l">Patient-initiated dials that entered the <b>hold queue</b>. <b>Excludes callbacks</b>, which are our outbound dials, not patient calls.</td><td><b>3,094</b> <span class="mut">calls</span></td><td><b>2,630</b> <span class="mut">of 6,197</span></td></tr>
+<tr><td class="l"><b>B — Legs</b></td><td class="l">Every contact record carrying a queue timestamp — held calls <b>plus</b> the callbacks we placed.</td><td><b>8,866</b> <span class="mut">records</span></td><td><b>6,197</b> <span class="mut">all</span></td></tr>
+<tr><td class="l"><b>C — Unique patients</b></td><td class="l">Distinct people who reached a queue by any path, counted <b>once</b> regardless of how many times they called or how many callbacks we placed.</td><td><b>6,197</b> <span class="mut">people</span></td><td><b>6,197</b> <span class="mut">all</span></td></tr>
 </tbody></table>
-<div class="note">B = A + callbacks (3,094 + 5,772 = 8,866). C is not a subset or sum of the others — it is a different unit entirely.</div>
+<div class="warn"><b>3,094 and 6,197 are not two versions of the same thing.</b> They differ on <b>two</b> axes at once, which is what makes them look contradictory:
+<br>&nbsp;&nbsp;<b>1. Different unit.</b> 3,094 counts <b>calls</b>; 6,197 counts <b>people</b>. The 3,094 calls were placed by <b>2,630 patients</b> — about 1.18 calls each, because some people called more than once.
+<br>&nbsp;&nbsp;<b>2. Different population.</b> Those 2,630 are the patients who <b>waited in the hold queue</b>. The remaining <b>3,567</b> reached a queue only through a callback — their inbound call ended in the IVR, so they contribute <b>zero</b> calls to unit A while still being people who reached a queue.
+<br>Unit A therefore covers <b>2,630 of the 6,197 patients (42%)</b>. Units B and C cover all 6,197.</div>
+<div class="lbl2">How the three denominators bridge</div>
+<table><thead><tr><th class="l">&nbsp;</th><th>Patients</th><th>Calls that queued</th><th>Callbacks placed</th><th>Legs</th></tr></thead><tbody>
+<tr><th class="l">Waited in the hold queue</th><td>2,630</td><td>3,094</td><td class="mut">&mdash;</td><td class="mut">&mdash;</td></tr>
+<tr><th class="l">Callback only — never waited</th><td>3,567</td><td>0</td><td class="mut">&mdash;</td><td class="mut">&mdash;</td></tr>
+<tr class="tot"><th class="l">Total in scope</th><td><b>6,197</b><br><span class="sub2">unit C</span></td><td><b>3,094</b><br><span class="sub2">unit A</span></td><td><b>5,772</b></td><td><b>8,866</b><br><span class="sub2">unit B</span></td></tr>
+</tbody></table>
+<div class="note">2,630 + 3,567 = 6,197 patients. Separately, 3,094 held calls + 5,772 callbacks = 8,866 legs. The callback column is not split by row because the 5,772 callbacks belong to 4,567 patients spanning both rows (3,567 callback-only plus the 1,000 who also waited), and that per-row split has not been measured. B = A + callbacks; C is a different unit entirely and is neither a subset nor a sum of the other two.</div>
 
 <div class="sec">The two callback treatments</div>
 <div class="lede">A callback can be treated as service delivered the moment we dial, or only when we actually reach the patient. This is the second axis of every scenario.</div>
@@ -101,7 +112,7 @@
 
 <div class="lbl2">By patients (unique people, deduplicated)</div>
 <table><thead><tr><th class="l">&nbsp;</th><th>Patients</th><th>Share</th></tr></thead><tbody>
-<tr><th class="l">Reached a queue <span class="mut">— in scope</span></th><td><b>6,197</b></td><td>100%</td></tr>
+<tr><th class="l">Reached a queue <span class="mut">— unit C denominator</span></th><td><b>6,197</b></td><td>100%</td></tr>
 <tr><th class="l">&nbsp;&nbsp;· waited in the hold queue only</th><td>1,630</td><td class="mut">26.3%</td></tr>
 <tr><th class="l">&nbsp;&nbsp;· callback only, never waited</th><td>3,567</td><td class="mut">57.6%</td></tr>
 <tr><th class="l">&nbsp;&nbsp;· both</th><td>1,000</td><td class="mut">16.1%</td></tr>
@@ -112,9 +123,9 @@
 <tr><th class="l">&nbsp;&nbsp;· waited and gave up, callback also failed</th><td>59</td><td class="mut">1.0%</td></tr>
 </tbody></table>
 
-<div class="lbl2">By calls (patient-initiated dials that reached the hold queue)</div>
+<div class="lbl2">By calls (patient-initiated dials that entered the hold queue — placed by 2,630 of the 6,197 patients)</div>
 <table><thead><tr><th class="l">&nbsp;</th><th>Calls</th><th>Share</th></tr></thead><tbody>
-<tr><th class="l">Reached the hold queue <span class="mut">— in scope</span></th><td><b>3,094</b></td><td>100%</td></tr>
+<tr><th class="l">Entered the hold queue <span class="mut">— unit A denominator</span></th><td><b>3,094</b></td><td>100%</td></tr>
 <tr><th class="l">&nbsp;&nbsp;· agent connected</th><td>880</td><td>28.4%</td></tr>
 <tr><th class="l">&nbsp;&nbsp;· no agent</th><td><b>2,214</b></td><td><b>71.6%</b></td></tr>
 <tr class="tot"><th class="l">Ended in the IVR <span class="mut">— excluded</span></th><td class="mut">8,525</td><td class="mut">&mdash;</td></tr>
@@ -124,7 +135,7 @@
 <table><thead><tr><th class="l">Leg type</th><th>Total</th><th>Connected</th><th>Not connected</th><th>Connect rate</th></tr></thead><tbody>
 <tr><th class="l">Held calls <span class="mut">— patient waited</span></th><td>3,094</td><td>880</td><td>2,214</td><td>28.4%</td></tr>
 <tr><th class="l">Callbacks <span class="mut">— we dialled out</span></th><td>5,772</td><td>5,211</td><td>561</td><td>90.3%</td></tr>
-<tr class="tot"><th class="l">All legs</th><td><b>8,866</b></td><td><b>6,091</b></td><td><b>2,775</b></td><td><b>68.7%</b></td></tr>
+<tr class="tot"><th class="l">All legs <span class="mut">— unit B denominator</span></th><td><b>8,866</b></td><td><b>6,091</b></td><td><b>2,775</b></td><td><b>68.7%</b></td></tr>
 </tbody></table>
 <div class="note">The callback channel connects 90.3% of the time; the hold queue connects 28.4% of the time. That contrast is why the choice of unit moves the headline so far.</div>
 
