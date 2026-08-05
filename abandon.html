@@ -20,10 +20,12 @@
   tr.tot th,tr.tot td{border-top:1.5px solid var(--bds);font-weight:600}
   tr.grp th,tr.grp td{border-top:1.5px solid var(--bds)}
   .rate{font-weight:700;font-size:14.5px;font-variant-numeric:tabular-nums}
+  table.math{font-size:12.5px;margin:4px 0 10px;max-width:640px}
+  table.math th,table.math td{padding:4px 6px;font-weight:400;color:var(--sec)}
+  table.math td{font-variant-numeric:tabular-nums;color:var(--ink)}
   .id{font-weight:700;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px}
   .mut{color:var(--mut)} .gapr{background:#f6f3fa}
   table.mx td:nth-child(n+5),table.mx th:nth-child(n+5){white-space:nowrap}
-  .sub2{font-size:11px;color:var(--mut);font-weight:400}
   .note{font-size:12px;color:var(--mut);margin-top:9px}
   .warn{font-size:12.5px;color:var(--amb);background:#fdf8ee;border:1px solid #efe0c4;border-radius:8px;padding:9px 12px;margin:14px 0}
   .read{font-size:12.5px;color:var(--sec);background:#f7f9fc;border:1px solid #dbe6f2;border-radius:8px;padding:9px 12px;margin:14px 0 4px}
@@ -42,7 +44,6 @@
   .scen{border:1px solid var(--bd);border-radius:10px;padding:13px 15px;margin:12px 0}
   .scen.gapc{border-color:#cbbde0;background:#fcfbfe}
   .scen h4{margin:0 0 5px;font-size:14px;font-weight:600}
-  .scen .fr{font-size:12.5px;color:var(--sec);font-variant-numeric:tabular-nums;margin-bottom:7px}
   .scen dl{margin:0;font-size:12.5px;color:var(--sec);display:grid;grid-template-columns:112px 1fr;gap:3px 10px}
   .scen dt{font-weight:600;color:var(--ink)} .scen dd{margin:0}
   .foot{font-size:11.5px;color:var(--mut);margin-top:36px;border-top:1px solid var(--bd);padding-top:14px}
@@ -118,13 +119,16 @@
 <div class="note">2,630 + 3,567 = 6,197 patients. Separately, 3,094 held calls + 5,772 callbacks = 8,866 records. The callback column is not split by row because those 5,772 callbacks went to 4,567 patients spanning both rows — 3,567 callback-only plus the 1,000 who also waited — and that split has not been measured.</div>
 <div class="note"><b>Why 2,630 + 4,567 &ne; 6,197.</b> Those two groups overlap: <b>1,000 patients did both</b> — waited in the hold queue <i>and</i> had a callback placed. 2,630 + 4,567 = 7,197, minus the 1,000 counted twice, gives 6,197.</div>
 
-<div class="sec">The callback treatment</div>
-<div class="lede">The second axis of the matrix. It changes only the numerator, never the population.</div>
-<table><thead><tr><th class="l">Treatment</th><th class="l">Rule</th><th class="l">What moves on Tue Aug 4</th></tr></thead><tbody>
-<tr><td class="l"><b>Only if it connected</b><br><span class="mut">A1 · B1 · C1 · D1</span></td><td class="l">A callback is service <b>only when an agent actually reached the patient</b>. A callback we placed that never connected is still an abandon.</td><td class="l">561 callback records / 206 patients stay counted as abandons</td></tr>
-<tr><td class="l"><b>Always</b><br><span class="mut">A2 · B2 · C2 · D2</span></td><td class="l">Placing the callback discharges the obligation, so <b>every callback is a success</b> whether or not it connected.</td><td class="l">Those same 561 records / 206 patients move out of the abandon count</td></tr>
+<div class="lbl2">Why the rates spread so far apart</div>
+<table><thead><tr><th class="l">Record type</th><th>Total</th><th>Connected</th><th>No agent</th><th>Connect rate</th></tr></thead><tbody>
+<tr><th class="l">Held calls <span class="mut">— patient waited</span></th><td>3,094</td><td>880</td><td>2,214</td><td>28.4%</td></tr>
+<tr><th class="l">Callbacks <span class="mut">— we dialled out</span></th><td>5,772</td><td>5,211</td><td>561</td><td>90.3%</td></tr>
+<tr class="tot"><th class="l">All records <span class="mut">— population for B1 / B2</span></th><td><b>8,866</b></td><td><b>6,091</b></td><td><b>2,775</b></td><td><b>68.7%</b></td></tr>
 </tbody></table>
-<div class="lbl2">Which of the 1,176 who never spoke counts as an abandon, scenario by scenario</div>
+<div class="warn"><b>This one contrast drives the whole spread from 15.7% to 71.6%.</b> The hold queue connects <b>28.4%</b> of the time; the callback channel connects <b>90.3%</b> of the time. A scenario that leans on hold-queue records reads badly; one that credits callbacks reads well. Same day, same patients.</div>
+
+
+<div class="sec">Which patients count as an abandon</div>
 <div class="lede" style="margin-bottom:8px">Under the <b>always</b> treatment, a patient is only an abandon if they never spoke to anyone <b>and</b> we never even tried to call them back. If a callback record exists for them — even one that rang out — that treatment credits it. This is what the C2 and D2 abandon rules mean in plain terms.</div>
 <table><thead><tr><th class="l">Group</th><th>Patients</th><th class="l">Waited on hold?</th><th class="l">Did we call back?</th><th class="l">C1</th><th class="l">C2</th><th class="l">D1</th><th class="l">D2</th></tr></thead><tbody>
 <tr><th class="l">Gave up on hold, no callback ever created</th><td><b>970</b></td><td class="l">yes</td><td class="l"><b>no</b></td><td class="l">abandon</td><td class="l"><b>abandon</b></td><td class="l">abandon</td><td class="l"><b>abandon</b></td></tr>
@@ -135,80 +139,49 @@
 <div class="note"><b>C2 and D2 have the same numerator</b> because all 970 of those patients waited on hold, so they sit inside both populations. Only the denominator differs: 970 &divide; 6,197 = 15.7% against 970 &divide; 2,630 = 36.9%. <b>D1 loses the 147</b> because those patients never waited on hold and so were never in D's population at all.</div>
 <div class="warn"><b>What the "always" treatment implies.</b> A patient who gave up on hold with no callback is an abandon, while a patient who gave up on hold and got a callback that rang out is not. The only thing separating them is whether a callback record was created — not whether anyone actually reached them. Across the 206 patients this affects, we averaged roughly 1.9 dial attempts each and reached none of them.</div>
 
-<div class="sec">Base counts</div>
-
-<div class="lbl2">People — the 6,197 who reached a queue</div>
-<table><thead><tr><th class="l">&nbsp;</th><th>Patients</th><th>Share</th></tr></thead><tbody>
-<tr><th class="l">Reached a queue <span class="mut">— population for C1 / C2</span></th><td><b>6,197</b></td><td>100%</td></tr>
-<tr><th class="l">&nbsp;&nbsp;· waited in the hold queue only</th><td>1,630</td><td class="mut">26.3%</td></tr>
-<tr><th class="l">&nbsp;&nbsp;· callback only, never waited</th><td>3,567</td><td class="mut">57.6%</td></tr>
-<tr><th class="l">&nbsp;&nbsp;· both</th><td>1,000</td><td class="mut">16.1%</td></tr>
-<tr class="tot"><th class="l">Spoke to an agent</th><td>5,021</td><td>81.0%</td></tr>
-<tr><th class="l">Never spoke to anyone <span class="mut">— abandons for C1</span></th><td><b>1,176</b></td><td><b>19.0%</b></td></tr>
-<tr><th class="l">&nbsp;&nbsp;· waited, gave up, no callback placed</th><td>970</td><td class="mut">15.7% <span class="sub2">= C2</span></td></tr>
-<tr><th class="l">&nbsp;&nbsp;· callback placed, never connected</th><td>147</td><td class="mut">2.4%</td></tr>
-<tr><th class="l">&nbsp;&nbsp;· waited and gave up, callback also failed</th><td>59</td><td class="mut">1.0%</td></tr>
-</tbody></table>
-<div class="note">The 970 row is also C2's abandon count, so its share of the population <i>is</i> C2's rate — the same arithmetic, not a coincidence. The 147 + 59 = <b>206 patients</b> are what the two callback treatments disagree about.</div>
-
-<div class="lbl2">Calls — patient dials only, no callbacks</div>
-<table><thead><tr><th class="l">&nbsp;</th><th>Calls</th><th>Share</th></tr></thead><tbody>
-<tr><th class="l">Entered the hold queue <span class="mut">— population for A1 / A2</span></th><td><b>3,094</b></td><td>100%</td></tr>
-<tr><th class="l">&nbsp;&nbsp;· agent connected</th><td>880</td><td>28.4%</td></tr>
-<tr><th class="l">&nbsp;&nbsp;· no agent <span class="mut">— abandons for A1</span></th><td><b>2,214</b></td><td><b>71.6%</b></td></tr>
-</tbody></table>
-
-<div class="lbl2">Records — held calls and callbacks together</div>
-<table><thead><tr><th class="l">Record type</th><th>Total</th><th>Connected</th><th>No agent</th><th>Connect rate</th></tr></thead><tbody>
-<tr><th class="l">Held calls <span class="mut">— patient waited</span></th><td>3,094</td><td>880</td><td>2,214</td><td>28.4%</td></tr>
-<tr><th class="l">Callbacks <span class="mut">— we dialled out</span></th><td>5,772</td><td>5,211</td><td>561</td><td>90.3%</td></tr>
-<tr class="tot"><th class="l">All records <span class="mut">— population for B1 / B2</span></th><td><b>8,866</b></td><td><b>6,091</b></td><td><b>2,775</b></td><td><b>68.7%</b></td></tr>
-</tbody></table>
-<div class="warn"><b>This one contrast drives the whole spread from 15.7% to 71.6%.</b> The hold queue connects <b>28.4%</b> of the time; the callback channel connects <b>90.3%</b> of the time. A scenario that leans on hold-queue records reads badly; one that credits callbacks reads well. Same day, same patients.</div>
-
 <div class="sec">Each scenario in detail</div>
 
 <div class="scen"><h4><span class="id">A1</span> &nbsp;Calls · callback counts only if connected &nbsp;&mdash;&nbsp; <b>71.6%</b></h4>
-<div class="fr">2,214 held calls with no agent &divide; 3,094 held calls</div>
+<table class="math"><tbody><tr><th class="l">Population &mdash; calls that entered the hold queue</th><td>3,094</td></tr><tr><th class="l">Less: an agent connected on that call</th><td>&minus;880</td></tr><tr class="tot"><th class="l"><b>= Abandons</b></th><td><b>2,214</b></td></tr><tr><th class="l"><b>Abandon rate</b> &mdash; 2,214 &divide; 3,094</th><td><b>71.6%</b></td></tr></tbody></table>
 <dl><dt>Counts</dt><dd>Of the calls where a patient waited on hold, how many ended without an agent.</dd>
 <dt>Excludes</dt><dd>The 3,567 patients who took a callback without ever waiting — 57.6% of the in-scope population contributes nothing to this figure.</dd>
 <dt>Distortion</dt><dd>Reads high. The numerator includes patients who left the hold queue <i>deliberately</i> to take a callback and were then served — the data records "no agent on this record", not "gave up".</dd></dl></div>
 
 <div class="scen gapc"><h4><span class="id">A2</span> &nbsp;Calls · callback always counts &nbsp;&mdash;&nbsp; <b class="mut">not derivable</b></h4>
-<div class="fr">? &divide; 3,094 held calls</div>
+<table class="math"><tbody><tr><th class="l">Population &mdash; calls that entered the hold queue</th><td>3,094</td></tr><tr><th class="l">Less: an agent connected on that call</th><td>&minus;880</td></tr><tr><th class="l">Less: calls whose patient later got a callback</th><td><span class='mut'>&minus; unknown</span></td></tr><tr class="tot"><th class="l"><b>= Abandons</b></th><td><span class='mut'><b>unknown</b></span></td></tr><tr><th class="l"><b>Abandon rate</b></th><td><span class='mut'><b>not derivable</b></span></td></tr></tbody></table>
 <dl><dt>Blocked on</dt><dd>The count of held calls whose patient later had a callback placed. That join has never been run.</dd>
 <dt>Best bound</dt><dd>Arithmetic narrows it to 1,000–1,464 records, which is too wide to state as a rate. Left blank rather than estimated.</dd>
 <dt>To fill it</dt><dd>Count held records whose <code>patient_id</code> also appears on a <code>CALLBACK</code> record the same day.</dd></dl></div>
 
 <div class="scen"><h4><span class="id">B1</span> &nbsp;Records · callback counts only if connected &nbsp;&mdash;&nbsp; <b>31.3%</b></h4>
-<div class="fr">2,775 records with no agent &divide; 8,866 records</div>
+<table class="math"><tbody><tr><th class="l">Population &mdash; all queued records</th><td>8,866</td></tr><tr><th class="l">Less: an agent connected</th><td>&minus;6,091</td></tr><tr class="tot"><th class="l"><b>= Abandons</b></th><td><b>2,775</b></td></tr><tr><th class="l"><b>Abandon rate</b> &mdash; 2,775 &divide; 8,866</th><td><b>31.3%</b></td></tr></tbody></table>
 <dl><dt>Counts</dt><dd>Every queued record that ended without an agent — 2,214 held calls plus 561 callbacks that never connected.</dd>
 <dt>Distortion</dt><dd>Callbacks are <b>65% of the population</b> and they are our own outbound dials, so placing more callbacks moves this rate without helping one additional patient. It also counts the 1,000 patients who both waited and got a callback more than once.</dd></dl></div>
 
 <div class="scen"><h4><span class="id">B2</span> &nbsp;Records · callback always counts &nbsp;&mdash;&nbsp; <b>25.0%</b></h4>
-<div class="fr">2,214 held records with no agent &divide; 8,866 records</div>
+<table class="math"><tbody><tr><th class="l">Population &mdash; all queued records</th><td>8,866</td></tr><tr><th class="l">Less: an agent connected</th><td>&minus;6,091</td></tr><tr><th class="l">Less: callbacks that rang out, now counted as served</th><td>&minus;561</td></tr><tr class="tot"><th class="l"><b>= Abandons</b></th><td><b>2,214</b></td></tr><tr><th class="l"><b>Abandon rate</b> &mdash; 2,214 &divide; 8,866</th><td><b>25.0%</b></td></tr></tbody></table>
 <dl><dt>Counts</dt><dd>B1 with the 561 non-connecting callbacks reclassified as served rather than abandoned.</dd>
 <dt>Distortion</dt><dd>All 5,772 callbacks stay in the population while none of them can ever be an abandon. The population can therefore only grow the more we dial, which makes this the most easily moved of the eight.</dd></dl></div>
 
 <div class="scen"><h4><span class="id">C1</span> &nbsp;People · any queue path · callback counts only if connected &nbsp;&mdash;&nbsp; <b>19.0%</b></h4>
-<div class="fr">1,176 patients who never spoke &divide; 6,197 patients who reached a queue</div>
+<table class="math"><tbody><tr><th class="l">Population &mdash; patients who reached a queue</th><td>6,197</td></tr><tr><th class="l">Less: spoke to an agent, on hold or on a callback</th><td>&minus;5,021</td></tr><tr class="tot"><th class="l"><b>= Abandons</b></th><td><b>1,176</b></td></tr><tr><th class="l"><b>Abandon rate</b> &mdash; 1,176 &divide; 6,197</th><td><b>19.0%</b></td></tr></tbody></table>
 <dl><dt>Counts</dt><dd>Of the people we owed a conversation, how many never got one — whatever path they took, however many times they tried.</dd>
 <dt>Strength</dt><dd>Cannot be moved by dialling more, because each patient is counted once whether we called them once or five times.</dd>
 <dt>Distortion</dt><dd>Understates repeat pain — someone who failed three times counts the same as someone who failed once.</dd></dl></div>
 
 <div class="scen"><h4><span class="id">C2</span> &nbsp;People · any queue path · callback always counts &nbsp;&mdash;&nbsp; <b>15.7%</b></h4>
-<div class="fr">970 patients &divide; 6,197 patients who reached a queue</div>
+<table class="math"><tbody><tr><th class="l">Population &mdash; patients who reached a queue</th><td>6,197</td></tr><tr><th class="l">Less: spoke to an agent, on hold or on a callback</th><td>&minus;5,021</td></tr><tr><th class="l">Less: had a callback placed that rang out, now counted as served</th><td>&minus;206</td></tr><tr class="tot"><th class="l"><b>= Abandons</b></th><td><b>970</b></td></tr><tr><th class="l"><b>Abandon rate</b> &mdash; 970 &divide; 6,197</th><td><b>15.7%</b></td></tr></tbody></table>
 <dl><dt>Counts</dt><dd>C1 minus 206 patients: the 147 whose only path was a callback that never connected, plus the 59 who waited, gave up, and whose callback also failed.</dd>
 <dt>What it asserts</dt><dd>That those 206 people were served. None of them spoke to anyone. We averaged roughly 1.9 dial attempts each.</dd></dl></div>
 
 <div class="scen"><h4><span class="id">D1</span> &nbsp;People · hold queue only · callback counts only if connected &nbsp;&mdash;&nbsp; <b>39.1%</b></h4>
-<div class="fr">1,029 patients who never spoke &divide; 2,630 patients who waited in the hold queue</div>
+<table class="math"><tbody><tr><th class="l">Population &mdash; patients who waited on hold</th><td>2,630</td></tr><tr><th class="l">Less: spoke to an agent, on hold or on a callback</th><td>&minus;1,601</td></tr><tr class="tot"><th class="l"><b>= Abandons</b></th><td><b>1,029</b></td></tr><tr><th class="l"><b>Abandon rate</b> &mdash; 1,029 &divide; 2,630</th><td><b>39.1%</b></td></tr></tbody></table>
 <dl><dt>Counts</dt><dd>Of the people who actually waited on hold, how many never spoke to anyone. A callback still counts as a valid way to be <b>served</b> — it just no longer counts as a way to <b>enter</b> the population.</dd>
 <dt>Arithmetic</dt><dd>Population 2,630 = 1,630 who only waited + 1,000 who waited and also got a callback. Abandons 1,029 = 970 who gave up with no callback + 59 whose callback also failed. 1,601 (60.9%) spoke to someone.</dd>
 <dt>Distortion</dt><dd>Roughly double C1, because it removes 3,567 patients of whom <b>3,420 (95.9%) were served</b>. Dropping a well-served group leaves a smaller, worse-performing population. This measures the hold queue's health, not whether a patient got help.</dd></dl></div>
 
 <div class="scen"><h4><span class="id">D2</span> &nbsp;People · hold queue only · callback always counts &nbsp;&mdash;&nbsp; <b>36.9%</b></h4>
-<div class="fr">970 patients &divide; 2,630 patients who waited in the hold queue</div>
+<table class="math"><tbody><tr><th class="l">Population &mdash; patients who waited on hold</th><td>2,630</td></tr><tr><th class="l">Less: spoke to an agent, on hold or on a callback</th><td>&minus;1,601</td></tr><tr><th class="l">Less: had a callback placed that rang out, now counted as served</th><td>&minus;59</td></tr><tr class="tot"><th class="l"><b>= Abandons</b></th><td><b>970</b></td></tr><tr><th class="l"><b>Abandon rate</b> &mdash; 970 &divide; 2,630</th><td><b>36.9%</b></td></tr></tbody></table>
 <dl><dt>Counts</dt><dd>D1 minus the 59 patients who waited, gave up, and whose callback also failed.</dd>
 <dt>Note</dt><dd>The 147 callback-only abandons were never in this population, so this treatment moves D by far less than it moves C — 2.2 points against 3.3.</dd></dl></div>
 
