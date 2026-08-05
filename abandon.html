@@ -3,7 +3,7 @@
   *{box-sizing:border-box}
   body{margin:0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
        color:var(--ink);background:#fff;line-height:1.5;padding:22px}
-  .wrap{max-width:1060px;margin:0 auto}
+  .wrap{max-width:1140px;margin:0 auto}
   h1{font-size:22px;font-weight:600;margin:0}
   .badge{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.04em;padding:2px 7px;border-radius:4px;
          background:#f4e9d6;color:var(--amb);vertical-align:3px;margin-left:8px}
@@ -22,6 +22,7 @@
   .rate{font-weight:700;font-size:14.5px;font-variant-numeric:tabular-nums}
   .id{font-weight:700;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px}
   .mut{color:var(--mut)} .gapr{background:#f6f3fa}
+  table.mx td:nth-child(n+5),table.mx th:nth-child(n+5){white-space:nowrap}
   .sub2{font-size:11px;color:var(--mut);font-weight:400}
   .note{font-size:12px;color:var(--mut);margin-top:9px}
   .warn{font-size:12.5px;color:var(--amb);background:#fdf8ee;border:1px solid #efe0c4;border-radius:8px;padding:9px 12px;margin:14px 0}
@@ -54,33 +55,21 @@
 <div class="read"><b>How to read this page.</b> There are eight defensible ways to compute voice abandonment for the same day. <b>The matrix immediately below is the whole answer</b> — every section after it is the derivation. All eight use the same source data and the same scope rule; they differ only in <b>what they count</b> (calls, contact records, or people), <b>who is in the population</b>, and <b>whether a callback we placed counts as service even if it never connected</b>.</div>
 
 <div class="sec">The eight scenarios</div>
-<table><thead><tr><th class="l">ID</th><th class="l">Counting</th><th class="l">Population</th><th class="l">Does a callback put you <b>in the population</b>?</th><th class="l">Does a callback count as <b>being served</b>?</th><th>Abandons</th><th>Population size</th><th>Abandon rate</th></tr></thead><tbody>
-<tr><td class="l"><span class="id">A1</span></td><td class="l">Calls</td><td class="l">Calls that entered the hold queue</td><td class="l">No &mdash; the unit is patient calls only</td><td class="l">No &mdash; callbacks sit outside this unit entirely</td><td>2,214</td><td>3,094</td><td class="rate">71.6%</td></tr>
-<tr class="gapr"><td class="l"><span class="id">A2</span></td><td class="l">Calls</td><td class="l">Calls that entered the hold queue</td><td class="l">No</td><td class="l">Yes &mdash; a callback credits the patient's held call</td><td class="mut">unknown</td><td>3,094</td><td class="mut">not derivable</td></tr>
-<tr class="grp"><td class="l"><span class="id">B1</span></td><td class="l">Records</td><td class="l">All queued records — held calls + callbacks</td><td class="l">Yes &mdash; each callback is its own row</td><td class="l">Only if it connected</td><td>2,775</td><td>8,866</td><td class="rate">31.3%</td></tr>
-<tr><td class="l"><span class="id">B2</span></td><td class="l">Records</td><td class="l">All queued records — held calls + callbacks</td><td class="l">Yes</td><td class="l">Always</td><td>2,214</td><td>8,866</td><td class="rate">25.0%</td></tr>
-<tr class="grp"><td class="l"><span class="id">C1</span></td><td class="l">People</td><td class="l">Patients who reached a queue by <b>any</b> path</td><td class="l"><b>Yes</b> &mdash; a callback is a valid way to reach a queue</td><td class="l">Only if it connected</td><td>1,176</td><td>6,197</td><td class="rate">19.0%</td></tr>
-<tr><td class="l"><span class="id">C2</span></td><td class="l">People</td><td class="l">Patients who reached a queue by <b>any</b> path</td><td class="l"><b>Yes</b></td><td class="l">Always</td><td>970</td><td>6,197</td><td class="rate">15.7%</td></tr>
-<tr class="grp"><td class="l"><span class="id">D1</span></td><td class="l">People</td><td class="l">Patients who <b>waited in the hold queue</b></td><td class="l"><b>No</b> &mdash; you must have actually waited</td><td class="l">Only if it connected</td><td>1,029</td><td>2,630</td><td class="rate">39.1%</td></tr>
-<tr><td class="l"><span class="id">D2</span></td><td class="l">People</td><td class="l">Patients who <b>waited in the hold queue</b></td><td class="l"><b>No</b></td><td class="l">Always</td><td>970</td><td>2,630</td><td class="rate">36.9%</td></tr>
+<table class="mx"><thead><tr><th class="l">ID</th><th class="l">Counting</th><th class="l">Who is in the population</th><th class="l">What counts as an abandon</th><th>Abandons</th><th>Population size</th><th>Abandon rate</th></tr></thead><tbody>
+<tr><td class="l"><span class="id">A1</span></td><td class="l">Calls</td><td class="l">The <b>3,094 calls</b> that entered the hold queue. Callbacks are not patient calls, so they are absent entirely.</td><td class="l">A held call where <b>no agent connected on that call</b>. A patient who gave up here and was later reached by callback still counts as an abandon.</td><td>2,214</td><td>3,094</td><td class="rate">71.6%</td></tr>
+<tr class="gapr"><td class="l"><span class="id">A2</span></td><td class="l">Calls</td><td class="l">The same <b>3,094 calls</b>.</td><td class="l">A held call where no agent connected <b>and</b> no callback was ever placed for that patient.</td><td class="mut">unknown</td><td>3,094</td><td class="mut">not derivable</td></tr>
+<tr class="grp"><td class="l"><span class="id">B1</span></td><td class="l">Records</td><td class="l">All <b>8,866 queued records</b> &mdash; 3,094 held calls plus 5,772 callbacks, each its own row.</td><td class="l">Any record, held call <b>or</b> callback, where no agent connected. Includes the <b>561 callbacks that rang out</b>.</td><td>2,775</td><td>8,866</td><td class="rate">31.3%</td></tr>
+<tr><td class="l"><span class="id">B2</span></td><td class="l">Records</td><td class="l">The same <b>8,866 records</b>.</td><td class="l">A held call where no agent connected. A callback record can <b>never</b> be an abandon, connected or not.</td><td>2,214</td><td>8,866</td><td class="rate">25.0%</td></tr>
+<tr class="grp"><td class="l"><span class="id">C1</span></td><td class="l">People</td><td class="l">The <b>6,197 patients</b> who reached a queue &mdash; by waiting on hold, by having a callback placed, or both.</td><td class="l">A patient who <b>never spoke to an agent at all</b> &mdash; not on hold, and not on any callback we placed. <b>Includes the 206 whose callbacks rang out.</b></td><td>1,176</td><td>6,197</td><td class="rate">19.0%</td></tr>
+<tr><td class="l"><span class="id">C2</span></td><td class="l">People</td><td class="l">The same <b>6,197 patients</b>.</td><td class="l">A patient who never spoke to an agent <b>and</b> for whom <b>no callback was ever placed</b>. Those 206 now count as served.</td><td>970</td><td>6,197</td><td class="rate">15.7%</td></tr>
+<tr class="grp"><td class="l"><span class="id">D1</span></td><td class="l">People</td><td class="l">The <b>2,630 patients who waited on hold</b>. A callback alone does not get you in &mdash; though <b>1,000 of these 2,630 did also get one</b>, having waited first.</td><td class="l">A patient who never spoke to an agent &mdash; not on hold, and not on any callback placed for them. <b>Includes the 59 whose callback also failed.</b></td><td>1,029</td><td>2,630</td><td class="rate">39.1%</td></tr>
+<tr><td class="l"><span class="id">D2</span></td><td class="l">People</td><td class="l">The same <b>2,630 patients</b>.</td><td class="l">A patient who never spoke to an agent <b>and</b> for whom <b>no callback was ever placed</b>. Those 59 now count as served.</td><td>970</td><td>2,630</td><td class="rate">36.9%</td></tr>
 </tbody></table>
-<div class="warn"><b>A callback does two separate jobs, and each scenario answers them independently.</b> This is the most common source of confusion on this page, so read those two callback columns as two different questions:
-<br>&nbsp;&nbsp;<b>Job 1 &mdash; entry.</b> Does having a callback placed put a patient into the population at all? <b>C says yes. D says no.</b>
-<br>&nbsp;&nbsp;<b>Job 2 &mdash; service.</b> Does a callback mean the patient was served? <b>Treatment 1 says only if it connected. Treatment 2 says always.</b>
-<br>A scenario can answer <i>yes</i> to entry and <i>only if connected</i> to service &mdash; that combination <b>is</b> C1, which is why <b>C1 does include patients who got callbacks</b>, both in its population and among its abandons.</div>
-
-<div class="lbl2">The exact abandon rule for each scenario, spelled out</div>
-<table><thead><tr><th class="l">ID</th><th class="l">Who is in the population</th><th class="l">What counts as an abandon</th></tr></thead><tbody>
-<tr><td class="l"><span class="id">A1</span></td><td class="l">The <b>3,094 calls</b> that entered the hold queue. Callbacks are not patient calls and are absent entirely.</td><td class="l">A held call where no agent connected <b>on that call</b>. A patient who gave up here and was later reached by callback still counts as an abandon, because the callback is a separate record.</td></tr>
-<tr class="gapr"><td class="l"><span class="id">A2</span></td><td class="l">The same <b>3,094 calls</b>.</td><td class="l">A held call where no agent connected <b>and</b> no callback was ever placed for that patient. <span class="mut">Not derivable — see A2's block below.</span></td></tr>
-<tr class="grp"><td class="l"><span class="id">B1</span></td><td class="l">All <b>8,866 queued records</b> — 3,094 held calls plus 5,772 callbacks, each its own row.</td><td class="l">Any record, held call <b>or</b> callback, where no agent connected. Includes the 561 callbacks that rang out.</td></tr>
-<tr><td class="l"><span class="id">B2</span></td><td class="l">The same <b>8,866 records</b>.</td><td class="l">A held call where no agent connected. A callback record can <b>never</b> be an abandon, connected or not.</td></tr>
-<tr class="grp"><td class="l"><span class="id">C1</span></td><td class="l">The <b>6,197 patients</b> who reached a queue — by waiting on hold, by having a callback placed, or both.</td><td class="l">A patient who <b>never spoke to an agent at all</b> — not on hold, and not on any callback we placed. <b>This includes the 206 patients whose callbacks rang out.</b></td></tr>
-<tr><td class="l"><span class="id">C2</span></td><td class="l">The same <b>6,197 patients</b>.</td><td class="l">A patient who never spoke to an agent <b>and</b> for whom no callback was ever placed. Those 206 now count as served.</td></tr>
-<tr class="grp"><td class="l"><span class="id">D1</span></td><td class="l">The <b>2,630 patients who waited on hold</b>. A callback alone does not get you in — but <b>1,000 of these 2,630 did also get a callback</b>, having waited first.</td><td class="l">A patient who never spoke to an agent — not on hold, and not on any callback placed for them. <b>Includes the 59 who waited and whose callback also failed.</b></td></tr>
-<tr><td class="l"><span class="id">D2</span></td><td class="l">The same <b>2,630 patients</b>.</td><td class="l">A patient who never spoke to an agent <b>and</b> for whom no callback was ever placed. Those 59 now count as served.</td></tr>
-</tbody></table>
-<div class="note"><b>A2 cannot be computed from data we hold today</b> — it needs a join that has never been run, and is left blank rather than estimated. <b>C and D differ only on job 1:</b> they use the identical abandon rule, but C lets a callback bring a patient into the population and D does not.</div>
+<div class="warn"><b>A callback does two separate jobs, and each scenario answers them independently.</b> Keeping them apart is what makes the table above read cleanly:
+<br>&nbsp;&nbsp;<b>Job 1 &mdash; entry.</b> Does having a callback placed put a patient into the population? <b>C says yes. D says no.</b> Read this in the population column.
+<br>&nbsp;&nbsp;<b>Job 2 &mdash; service.</b> Does a callback mean the patient was served? <b>The "1" scenarios say only if it connected. The "2" scenarios say always.</b> Read this in the abandon column.
+<br>A scenario can answer <i>yes</i> to entry and <i>only if connected</i> to service &mdash; that combination <b>is</b> C1, which is why <b>C1 includes patients who got callbacks</b>, both in its population and among its abandons.</div>
+<div class="note"><b>A2 cannot be computed from data we hold today</b> &mdash; it needs a join that has never been run, and is left blank rather than estimated (see its block below). <b>C and D use the identical abandon rule</b> and differ only on job 1: C lets a callback bring a patient into the population, D does not.</div>
 
 <div class="sec">Scope — who is counted at all</div>
 <div class="lede">Every scenario is restricted to contacts that <b>reached a queue</b>. Anyone who resolved themselves in the IVR, or hung up before reaching a queue, is excluded throughout.</div>
