@@ -1,0 +1,742 @@
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>Patient Services Board Pack · Internal only</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+:root{
+  --page:#f4f5f2; --surface:#fcfcfb; --surface-2:#eef0eb;
+  --ink:#14171c; --ink-2:#4f5560; --muted:#868c97;
+  --grid:#e2e4e0; --baseline:#c6c9c4; --rule:#d8dbd5;
+  --demand:#2a78d6; --human:#1baf7a; --ai:#eb6834; --cb:#eda100; --spend:#4a3aa7;
+  --g1:#6b7280; --g2:#9aa0a8; --g3:#c9ccc6;
+  --v1:#4a3aa7; --v2:#7a6ccf; --v3:#ab9fe6; --v4:#d6cff5;
+  --flag-bg:#fff4dc; --flag-ink:#7a4d00; --flag-rule:#e8c98a;
+  --live-bg:#e3f5ec; --live-ink:#0b5a36; --staged-bg:#eceaf8; --staged-ink:#3b2e8a;
+  --accent:#1f4f8f;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --page:#0e1013; --surface:#1a1a19; --surface-2:#22242a;
+    --ink:#f4f4f1; --ink-2:#c3c2b7; --muted:#898781;
+    --grid:#2c2c2a; --baseline:#383835; --rule:#33363c;
+    --demand:#3987e5; --human:#199e70; --ai:#d95926; --cb:#c98500; --spend:#9085e9;
+    --g1:#8b929c; --g2:#5f656d; --g3:#3d4248;
+    --v1:#9085e9; --v2:#7a6ccf; --v3:#5c4fbf; --v4:#3f3390;
+    --flag-bg:#33280f; --flag-ink:#f2d28a; --flag-rule:#6b5520;
+    --live-bg:#12352a; --live-ink:#8ee0b7; --staged-bg:#26224a; --staged-ink:#c3bcf5;
+    --accent:#8fb3e8;
+  }
+}
+:root[data-theme="dark"]{
+  --page:#0e1013; --surface:#1a1a19; --surface-2:#22242a;
+  --ink:#f4f4f1; --ink-2:#c3c2b7; --muted:#898781;
+  --grid:#2c2c2a; --baseline:#383835; --rule:#33363c;
+  --demand:#3987e5; --human:#199e70; --ai:#d95926; --cb:#c98500; --spend:#9085e9;
+  --g1:#8b929c; --g2:#5f656d; --g3:#3d4248;
+  --v1:#9085e9; --v2:#7a6ccf; --v3:#5c4fbf; --v4:#3f3390;
+  --flag-bg:#33280f; --flag-ink:#f2d28a; --flag-rule:#6b5520;
+  --live-bg:#12352a; --live-ink:#8ee0b7; --staged-bg:#26224a; --staged-ink:#c3bcf5;
+  --accent:#8fb3e8;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--page);color:var(--ink);font:15px/1.55 "IBM Plex Sans",system-ui,-apple-system,Segoe UI,sans-serif;-webkit-font-smoothing:antialiased}
+.wrap{max-width:900px;margin:0 auto;padding:40px 24px 72px}
+h1,h2,h3{font-family:"IBM Plex Serif",Georgia,"Times New Roman",serif;text-wrap:balance;margin:0}
+h1{font-size:34px;line-height:1.15;font-weight:600;letter-spacing:-.01em}
+h2{font-size:24px;line-height:1.25;font-weight:600}
+h3{font-size:16px;font-weight:600;font-family:"IBM Plex Sans",system-ui,sans-serif}
+.eyebrow{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:500}
+.dek{color:var(--ink-2);margin-top:10px}
+header{padding-bottom:22px;border-bottom:1px solid var(--rule)}
+.tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:22px 0 8px}
+.tile{background:var(--surface);border-top:2px solid var(--rule);padding:12px 12px 10px}
+.tile .n{font-family:"IBM Plex Serif",Georgia,serif;font-size:26px;font-weight:600;line-height:1.1;font-variant-numeric:tabular-nums}
+.tile .l{font-size:12.5px;color:var(--ink-2);margin-top:4px;line-height:1.35}
+.tile .s{font-size:11px;color:var(--muted);margin-top:6px}
+.arc{margin-top:22px;background:var(--surface-2);padding:14px 18px;border-left:3px solid var(--accent);font-family:"IBM Plex Serif",Georgia,serif;font-size:16px;line-height:1.5}
+.arc b{font-weight:600}
+section.slide{margin-top:44px;padding-top:26px;border-top:1px solid var(--rule)}
+.slide-tag{display:flex;align-items:baseline;gap:12px;margin-bottom:6px}
+.slide-tag .k{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:500}
+.headline{font-family:"IBM Plex Serif",Georgia,serif;font-size:19px;line-height:1.4;color:var(--ink);margin:10px 0 14px;font-style:italic}
+ul.b{margin:0;padding-left:18px;}
+ul.b li{margin:0 0 9px}
+ul.b li b{font-weight:600}
+.src{font-size:12px;color:var(--muted);margin-top:8px;line-height:1.45}
+.cols{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:16px}
+.cols.two{grid-template-columns:1fr 1fr}
+.cols h3{padding-bottom:6px;border-bottom:1px solid var(--rule);margin-bottom:10px}
+.cols ul.b{padding-left:16px}
+.cols ul.b li{font-size:14px;margin-bottom:8px}
+.chip{display:inline-block;font-size:10.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:1px 6px;border-radius:3px;vertical-align:1px;margin-left:4px}
+.chip.live{background:var(--live-bg);color:var(--live-ink)}
+.chip.internal{background:var(--flag-bg);color:var(--flag-ink);border:1px solid var(--flag-rule);font-size:11px;vertical-align:middle;margin-left:10px;padding:2px 8px}
+.chip.staged{background:var(--staged-bg);color:var(--staged-ink)}
+.flag{display:inline-block;background:var(--flag-bg);color:var(--flag-ink);border:1px solid var(--flag-rule);border-radius:3px;padding:0 5px;font-size:12.5px;font-weight:500}
+figure{margin:20px 0 0;background:var(--surface);padding:14px 16px 10px;border:1px solid var(--rule)}
+figure figcaption{font-size:13px;color:var(--ink-2);margin-bottom:8px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+figure figcaption b{color:var(--ink);font-weight:600}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--ink-2)}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:5px;vertical-align:-1px}
+.legend i.line{height:2px;width:14px;border-radius:0;vertical-align:3px}
+svg.chart{width:100%;height:auto;display:block;overflow:visible}
+svg.chart text{font-family:"IBM Plex Sans",system-ui,sans-serif;fill:var(--ink-2);font-variant-numeric:tabular-nums}
+svg.chart .ax{fill:var(--muted);font-size:11px}
+svg.chart .val{fill:var(--ink);font-size:11px;font-weight:600}
+svg.chart .grid{stroke:var(--grid);stroke-width:1}
+svg.chart .base{stroke:var(--baseline);stroke-width:1}
+table{border-collapse:collapse;width:100%;font-size:13.5px;font-variant-numeric:tabular-nums;margin-top:14px}
+th,td{padding:7px 10px;text-align:right;border-bottom:1px solid var(--rule);vertical-align:top}
+th{font-weight:600;color:var(--ink-2);font-size:12px;letter-spacing:.03em;text-transform:uppercase}
+th:first-child,td:first-child{text-align:left}
+td.note{color:var(--muted);font-size:12px;text-align:left}
+tr.sub td{color:var(--ink-2);font-size:12.5px}
+tr.sub td:first-child{padding-left:22px}
+tr.tot td{font-weight:600;border-top:1px solid var(--baseline)}
+.tablewrap{overflow-x:auto}
+details{margin-top:40px;border-top:1px solid var(--rule);padding-top:18px}
+summary{cursor:pointer;font-family:"IBM Plex Serif",Georgia,serif;font-size:20px;font-weight:600;list-style:none;display:flex;align-items:center;gap:10px}
+summary::-webkit-details-marker{display:none}
+summary::before{content:"+";display:inline-block;width:18px;color:var(--muted);font-family:"IBM Plex Sans",sans-serif;font-weight:500}
+details[open] summary::before{content:"–"}
+details h3{margin-top:26px}
+.callout{background:var(--surface-2);border-left:3px solid var(--accent);padding:12px 16px;margin-top:20px;font-size:14px;}
+.callout b{font-weight:600}
+footer{margin-top:48px;font-size:12px;color:var(--muted);border-top:1px solid var(--rule);padding-top:14px}
+.minis{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:4px}
+.mt{min-height:34px}
+.sub{margin:30px 0 6px;font-family:"IBM Plex Serif",Georgia,serif;font-size:19px;font-weight:600;line-height:1.25}
+.lead-sm{font-size:14.5px;color:var(--ink-2);margin:0 0 8px;line-height:1.5}
+.mt{font-size:12.5px;font-weight:600;color:var(--ink);margin-bottom:2px}
+.mt span{display:block;font-weight:400;color:var(--muted);font-size:11.5px}
+table.ba th,table.ba td{text-align:left;font-size:13px;line-height:1.45}
+table.ba td:first-child{font-weight:600;color:var(--ink);white-space:nowrap;width:12%}
+table.ba td:nth-child(2){color:var(--ink-2);width:40%}
+.pods{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:18px}
+.pod{background:var(--surface);border:1px solid var(--rule);border-top:3px solid var(--accent);padding:12px 14px}
+.pod .pn{font-weight:600;font-size:14px}
+.pod .pt{font-size:13px;color:var(--ink-2);margin-top:2px}
+.pod .pr{font-size:12px;color:var(--muted);margin-top:8px;line-height:1.4}
+.engine{margin-top:10px;background:var(--surface-2);border:1px dashed var(--rule);padding:10px 14px;font-size:13px;text-align:center;color:var(--ink-2)}
+.engine b{color:var(--ink);font-weight:600}
+.quote{margin:18px 0 0;padding:14px 18px;background:var(--surface-2);border-left:3px solid var(--human);font-family:"IBM Plex Serif",Georgia,serif;font-size:15px;line-height:1.5;font-style:italic}
+.quote .qsrc{font-style:normal;font-size:12.5px;color:var(--muted);margin-top:6px;font-family:"IBM Plex Sans",system-ui,sans-serif}
+.rowlab{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600;margin:10px 0 4px}
+.story{margin:14px 0 16px;border:1px solid var(--rule);border-left:3px solid var(--spend);padding:10px 16px;background:var(--surface)}
+.story .sl{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:6px}
+.story ol{margin:0;padding-left:20px;font-size:13.5px;line-height:1.5}
+.story li{margin-bottom:3px}
+.story .sv{font-size:12.5px;color:var(--ink-2);margin-top:6px}
+.legend i.hatch{background:repeating-linear-gradient(135deg,var(--g1) 0 1.5px,transparent 1.5px 4px);border:1px solid var(--g1)}
+@media (max-width:760px){.tiles{grid-template-columns:repeat(2,1fr)}.cols,.cols.two,.pods{grid-template-columns:1fr}.minis{grid-template-columns:1fr 1fr}h1{font-size:28px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<div class="wrap">
+<header>
+  <div class="eyebrow">Board deck · Patient Services · September 2026 · content pack · internal only</div>
+  <h1 style="margin-top:8px">Patient Services Board Pack <span class="chip internal">Internal only</span></h1>
+  <p class="dek">Headlines, facts, and supporting data. Spend runs through July; August follows from finance. Definitions, weekly series, and vendor detail are in the appendix.</p>
+
+  <div class="arc"><b>In two sentences.</b> The largest client launches in company history hit in July and August. We were staffed to a plan that missed demand by 3×, and service broke for three weeks. We hired, launched chat, and put AI on every channel; by early September demand had tripled, 15% of it was handled without an agent, abandonment was back to 6%, and patient ratings had held.</div>
+
+  <div class="tiles">
+    <div class="tile"><div class="n">+117%</div><div class="l">Calls offered, July → August</div><div class="s">247k → 536k</div></div>
+    <div class="tile"><div class="n">$2.1M → $3.2M</div><div class="l">Patient Services vendor spend per month, January → July</div><div class="s">August to follow</div></div>
+    <div class="tile"><div class="n">31% → 6%</div><div class="l">Call abandonment, early August → early September</div><div class="s">Week of Aug 3 → week of Aug 31</div></div>
+    <div class="tile"><div class="n">550 → 27k</div><div class="l">contacts a week handled without an agent, Jul 20 → Aug 31, net of re-contacts</div><div class="s">10% of inbound net · 15% before netting</div></div>
+  </div>
+</header>
+
+<!-- ============ 1 ============ -->
+<section class="slide" id="spend">
+  <div class="slide-tag"><span class="k">1</span><h2>Why support spend increased</h2></div>
+  <p class="headline">Spend followed volume. The largest client launches in company history landed in July and August, and demand roughly doubled every month.</p>
+  <div class="story"><div class="sl">Suggested storyline for the slide</div><ol><li>The largest client launches in company history landed in July and August: 57k–79k new patients a week, enrolled base 0.9M → 1.2M in six weeks, demand doubling each month.</li><li>Spend followed volume: $2.1M a month in January, about $3.0M from February, $3.2M in July. August to follow.</li><li>The plan assumed 34% growth for August; actual growth was 117%. Capacity was bought at peak, on short notice.</li><li>Punchline: June to July spend rose 7% while calls more than doubled. The cost of under-planning was service, not dollars.</li></ol><div class="sv"><b>Visual:</b> spend per month (Jan–Jul) beside inbound contacts per week by channel.</div></div>
+  <ul class="b">
+    <li><b>Spend.</b> Vendor spend: $2.1M a month in January, about $3.0M from February, $3.2M in July. August, the first full surge month, follows when finance closes it.</li>
+    <li><b>Volume.</b> Calls offered doubled from July to August (247k → 536k). Email tickets went from 17k a month in June to about 190k in August. Chat launched in August and reached 100k sessions a week. About 535k patient contacts a month in total.</li>
+    <li><b>Why.</b> Patients. The five largest clients added 57k–79k patients a week; their enrolled base grew from 0.90M to 1.23M between Jul 26 and Sep 6. Embody went from 102k to 395k patients and its weekly contacts rose 8×; the AltRx brands grew 20×. Contacts per active patient held near 0.3–0.4 a week, so demand grew because enrollment did. The plan assumed 34% growth for August; actual was 117%, so capacity was added at peak, on short notice.</li>
+  </ul>
+  <p class="src">Sources: finance BPO expense analyses (June, July) · Amazon Connect · Zoho Desk · Healthie (signups and enrolled base). Weekly signups and contacts per patient in the appendix.</p>
+
+  <figure>
+    <figcaption><span><b>Patient Services vendor spend per month, Jan – Jul 2026</b> · $M · label = share of revenue (Jan–Jun)</span></figcaption>
+    <svg class="chart" id="c-spend-total" viewBox="0 0 860 260" role="img" aria-label="Monthly Patient Services vendor spend"></svg>
+    <p class="src">Excludes the Fridays/Thrive line, which Patient Services does not count. Vendor breakdown and monthly detail in the appendix.</p>
+  </figure>
+
+  <figure>
+    <figcaption><span><b>Inbound patient contacts per week, by channel, all clients</b> · Jul 20 – Sep 6</span>
+      <span class="legend"><span><i style="background:var(--demand)"></i>Calls</span><span><i style="background:var(--cb)"></i>Emails</span><span><i style="background:var(--v2)"></i>Chats</span></span></figcaption>
+    <svg class="chart" id="c-volume" viewBox="0 0 860 300" role="img" aria-label="Weekly inbound contacts by channel"></svg>
+    <p class="src">All inbound demand, queued or not: includes contacts handled without an agent and calls that abandoned or took a callback. Junk and robocalls excluded. Amazon Connect (calls, chats), Zoho Desk (emails).</p>
+  </figure>
+</section>
+
+<!-- ============ 2 ============ -->
+<section class="slide" id="response">
+  <div class="slide-tag"><span class="k">2</span><h2>What we did to fix it</h2></div>
+  <p class="headline">We hired, launched chat, and put AI on every channel. Service broke for three weeks and recovered while volume kept climbing.</p>
+  <div class="story"><div class="sl">Suggested storyline for the slide (likely two slides: the fix, then the automation)</div><ol><li>Name the failure first: three bad weeks (Aug 3–23), abandonment up to 31%, Embody waits of 26 minutes with daily peaks near three hours.</li><li>Three moves: hired (+65% inbound agents in eight weeks), launched chat (0 → 100k sessions a week), put AI on every channel.</li><li>Recovery while volume kept climbing: 66% of calls reach an agent, abandonment 6%, average wait under 2 minutes. Quality held: agent ratings 4.4–4.5 of 5.</li><li>Code Yellow on email: nothing through Aug 9, then 39% of inbound email closed by AI in the week of Aug 31. Target 60%. Voice and chat self-service live on Embody and AltRx.</li><li>Contacts handled without an agent: 550 → 27,100 a week in six weeks, net of re-contacts (10% of inbound; 15% before netting). Voice AI lane credited at one-third until audited.</li><li>Money: about $0.34M a month today versus no AI, about $7.7M a year at target. Bills fall as vendor staffing is adjusted.</li></ol><div class="sv"><b>Visual:</b> the answered-calls chart (wait above, abandonment below, Embody highlighted); for automation, the deflection chart and the email chart.</div></div>
+  <ul class="b">
+    <li><b>Hired.</b> Inbound agents grew about 65% in eight weeks, from about 850 to 1,400, at the vendors serving the launches. Staffing is now planned against forecast peaks.</li>
+    <li><b>Launched chat.</b> Embody chat went live Aug 11, bot first. Within four weeks it handled about 100k sessions a week (62k reaching the queue) and became Embody's largest channel at about 60% of contacts. Human-answered Embody email fell from 28k to 8k a week and the open backlog is down about 60% from peak. AltRx is next.</li>
+    <li><b>Put AI on every channel.</b> Code Yellow's email AI classifies every inbound email, closes the routine ones, and routes anything clinical, legal, or distressed to a person. Voice self-service answers order-status calls on Embody and AltRx; the Embody chat bot answers first. Contacts handled without an agent went from about 550 a week in July to 27,100 in the week of Aug 31, net of re-contacts.</li>
+    <li><b>Result.</b> Calls reaching an agent: 39% of inbound at the low point → 66%. Abandonment 31% → 6%. Embody's average wait 26 minutes (daily peaks near three hours) → about 2 minutes. The last three weeks ran at peak volume with answers in minutes.</li>
+    <li><b>Quality held.</b> Embody's agent rating held at 4.4–4.5 of 5 on about 9,700 surveys a week. MedVi finished at 81% answered within 30 seconds with 2% abandonment. AltRx absorbed 20× voice growth at sub-40-second answers in five of six weeks. XMD's answer speed went from 47 to 13 seconds and repeat contacts from 4.0 to 1.2 per patient on 18% more volume.</li>
+  </ul>
+  <p class="src">Sources: vendor headcount sheets and rosters · Amazon Connect, including post-call surveys · Zoho Desk. Headcount and chat charts in the appendix.</p>
+
+  <figure>
+    <figcaption><span><b>Calls answered per week, all clients, Embody highlighted</b> · Jul 27 – Sep 6 · above each bar: average wait to answer · below: share of queued calls abandoned</span>
+      <span class="legend"><span><i style="background:var(--human)"></i>Embody (label = its own average wait)</span><span><i style="background:var(--g2)"></i>All other clients</span></span></figcaption>
+    <svg class="chart" id="c-recover" viewBox="0 0 860 350" role="img" aria-label="Weekly answered calls with average wait and abandonment"></svg>
+    <p class="src">Amazon Connect. Answered calls include completed callbacks. Wait = average speed of answer. Abandonment = share of queued calls that hung up before an agent. Chat and email trends: volume chart above, automation charts below.</p>
+  </figure>
+
+  <h3 class="sub">Automation: Code Yellow on email, self-service on voice and chat</h3>
+  <p class="lead-sm">Code Yellow's email AI is the largest piece and reached scale in mid-August; voice and chat self-service are live on Embody and AltRx. A contact resolved before it reaches an agent is the best experience and the cheapest. Lower vendor bills follow only as vendor staffing is adjusted to the lower workload, which is underway.</p>
+  <div class="cols two">
+    <div>
+      <h3>Code Yellow: email</h3>
+      <ul class="b">
+        <li><b>What it is.</b> Every inbound email is sorted into 16 categories, about 80% within 30 minutes. Routine ones are answered and closed; anything clinical, legal, or distressed goes to a person. An escalation-and-distress sweep runs every two hours.</li>
+        <li><b>Ramp.</b> Almost nothing through Aug 9, then 12k, 22k, 16k, and 19k closes a week: 39% of inbound email in the week of Aug 31.</li>
+        <li><b>Effect.</b> Human-answered email fell 61% while inbound email fell 14%. Target: 60% of inbound by mid-2027.</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Voice and chat self-service</h3>
+      <ul class="b">
+        <li><b>Chat.</b> The Embody bot answers first and resolves about 14% of sessions, 11% after re-contacts. AltRx is next <span class="chip staged">Staged</span>.</li>
+        <li><b>Voice.</b> Callers identified and intent captured on about 85% of Embody and AltRx calls; order-status calls answered without an agent, tracking link texted mid-call. Live on Embody and, since Sep 1, AltRx <span class="chip live">Live</span>; Trinity, Lean Meds, and Next Meds follow. Counted conservatively until a resolution audit is done.</li>
+        <li><b>Money, all channels.</b> About $0.34M a month today versus no AI, rising to about $0.64M a month ($7.7M a year) at target. Vendor bills fall only as staffing is adjusted to the lower workload, part of the vendor review.</li>
+      </ul>
+    </div>
+  </div>
+
+  <figure>
+    <figcaption><span><b>Contacts handled without an agent, per week, all clients</b> · Jul 20 – Sep 6 · solid = net of re-contacts</span>
+      <span class="legend"><span><i style="background:var(--ai)"></i>Email · Code Yellow AI</span><span><i style="background:var(--v2)"></i>Chat bot</span><span><i style="background:var(--cb)"></i>Voice self-service</span><span><i class="hatch"></i>Re-contacted within 12 hours (netted out)</span></span></figcaption>
+    <svg class="chart" id="c-deflect" viewBox="0 0 860 320" role="img" aria-label="Weekly contacts handled without an agent by channel, net and gross"></svg>
+    <p class="src">Code Yellow dashboard (AI email closes minus patient reopens); Amazon Connect (bot resolutions minus same-topic returns within 12 hours; verified voice self-service plus one-third credit for the unverified AI voice lane). Share of inbound = all patient contacts, junk excluded.</p>
+  </figure>
+
+  <figure>
+    <figcaption><span><b>Inbound email: answered by agents vs closed by Code Yellow AI, per week, all clients</b> · Jul 20 – Sep 6 · label = AI share of email received</span>
+      <span class="legend"><span><i style="background:var(--human)"></i>Answered by agents</span><span><i style="background:var(--ai)"></i>Closed by AI</span><span><i class="line" style="background:var(--demand)"></i>Emails received</span></span></figcaption>
+    <svg class="chart" id="c-email" viewBox="0 0 860 300" role="img" aria-label="Weekly inbound email, human-answered tickets, and AI resolutions"></svg>
+    <p class="src">Zoho Desk (received, answered by agents) and the Code Yellow dashboard (closed by AI, before netting patient reopens). Client patient inboxes only.</p>
+  </figure>
+  <p class="src">Sources: Code Yellow dashboard (Zoho Analytics) for email · Amazon Connect for voice and chat · PS cost model. Counting rules and weekly tables in the appendix.</p>
+</section>
+
+<!-- ============ 3 ============ -->
+<section class="slide" id="reset">
+  <div class="slide-tag"><span class="k">3</span><h2>The operating reset</h2></div>
+  <p class="headline">Rebuilt around clients: a named owner for every client, a shared operations engine, vendors managed on measured hours, QA moving from a 0.15% sample to 100% coverage.</p>
+  <div class="story"><div class="sl">Suggested storyline for the slide</div><ol><li>July: a function running blind. No scorecard, no demand model, 0.15% QA sampling, a team worn down by leadership churn.</li><li>Rebuilt around clients: pods by tier, a named owner for every client, a shared operations engine. Live Sep 21.</li><li>Vendors managed on measured hours and scored head-to-head; the contract review starts with the largest vendor.</li><li>Quality from a 0.15% sample to 100% AI scoring; about $5M a year of refund leakage surfaced.</li><li>Proof: a client's unprompted thank-you before the model's official go-live.</li></ol><div class="sv"><b>Visual:</b> the July → September table, then the pod diagram as a build.</div></div>
+  <div class="tablewrap">
+  <table class="ba">
+    <thead><tr><th></th><th>July</th><th>September</th></tr></thead>
+    <tbody>
+      <tr><td>Visibility</td><td>No per-agent vendor view, no service-level scorecard, no single view across channels. Different people got different numbers.</td><td>One command center: every client, channel, vendor, and agent live, with anomaly alerts and a capacity planner. Client dashboards publish from the same data.</td></tr>
+      <tr><td>Planning</td><td>Budget forecast as last month's invoices carried flat, with no demand model. August was planned at +34% and came in at +117%.</td><td>A demand-driven cost model (patients → contacts → hours → cost) reconciled to the P&amp;L monthly. Staffing planned against forecast peaks, with capacity triggers.</td></tr>
+      <tr><td>Organization</td><td>Successive leaders in under a year and no named owner per client. The team described direction as "a bullseye always moving."</td><td>Pods by client tier, each client with a named owner, on a shared operations engine; weekly goal readouts. Announced Sep 1, live Sep 21.</td></tr>
+      <tr><td>Vendors</td><td>Rates unverified against contracts; hours not measured against invoices.</td><td>Hours measured against invoices: the largest vendor runs at 49% occupancy against a 65% standard, and its July spend rose 12% on 39% fewer calls. Vendors scored head-to-head; contract review underway.</td></tr>
+      <tr><td>Quality</td><td>QA sampled 0.15% of interactions. Problems surfaced when a client escalated.</td><td>100% AI scoring in contracting (2.4× return, 3.8× with retention). Escalations and refunds audited case by case; about $5M a year of refund leakage surfaced.</td></tr>
+      <tr><td>Platform</td><td>Phone platform administered by a vendor; support run as a cost line, reactive by design.</td><td>Platform ownership moving in-house with Product: new client phone lines in five business days or less, readiness gate Sep 23. Deflection, saves, and refund integrity measured as levers.</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <p class="lead-sm" style="margin-top:20px">Organized around clients, not tasks: one team owns each client relationship end to end, cross-skilled across about 80% of program needs. Each pod has a patient success manager who owns the client, a BPO team lead, BPO agents, and an escalation manager with specialists.</p>
+  <div class="pods">
+    <div class="pod"><div class="pn">Anchor pod</div><div class="pt">Strategic and platinum clients</div></div>
+    <div class="pod"><div class="pn">Growth pod</div><div class="pt">Gold and silver clients</div></div>
+    <div class="pod"><div class="pn">Launch pod</div><div class="pt">Bronze, Launchpad, and Brick &amp; Mortar clients</div></div>
+  </div>
+  <div class="engine"><b>Operational Excellence engine, shared by all pods</b> · training &amp; knowledge, new-client launch · patient billing &amp; retention · workforce management, QA enablement &amp; vendor invoices</div>
+  <p class="src">In preview since Sep 1; client books assigned Sep 2–18; go-live Sep 21. Gaps it surfaces drive specific hiring calls, not headcount adds. A director for the shared engine is in final interviews. Detail in the appendix.</p>
+
+  <blockquote class="quote">"I just wanted to reach out and say a genuine thank you. I have felt so heard, supported, and valued by you guys over the last few weeks, and I really appreciate the time and effort you've put into working with us and helping us improve our support experience."<div class="qsrc">XMD, unprompted, to its pod leads · September 2026 · the pod model working before its go-live</div></blockquote>
+</section>
+
+
+<!-- ============ 4 ============ -->
+<section class="slide" id="tradeoffs">
+  <div class="slide-tag"><span class="k">4</span><h2>Volume, staffing, spend</h2></div>
+  <p class="headline">Demand more than tripled. Headcount rose about 65% and spend 7%. Agents handled 75% more contacts each and AI took 15% of demand. The cost was three bad weeks of service; patient ratings held.</p>
+  <div class="story"><div class="sl">Suggested storyline for the slide</div><ol><li>The tradeoff in one line: demand 3.2×, agents +65%, spend +7% (June to July), contacts per agent +75%, AI 15% of demand.</li><li>What it cost: three bad weeks of service; in the worst, 9% of Embody calls answered within 30 seconds against an 80% target.</li><li>What comes next: $5.7M a year of modeled savings at today's demand, $10.5M with plan growth; cost +27% while demand +86%.</li><li>Beyond cost: the save desk, winback, and refund integrity as measured levers.</li><li>Close on the January 1 commitments and the named risks.</li></ol><div class="sv"><b>Visual:</b> the early-July → early-September change bars, then savings by initiative.</div></div>
+  <ul class="b">
+    <li><b>What grew.</b> Inbound contacts went from 81k to 263k a week (3.2×). Contacts handled by agents went from 56k to 162k (2.9×).</li>
+    <li><b>What absorbed it.</b> Inbound agents +65% (850 → 1,400). Contacts per agent +75% (66 → 116 a week). Contacts handled without an agent: under 1% → 15%. Vendor spend +7% June to July (August to follow).</li>
+    <li><b>What it cost.</b> Service. Abandonment ran 16–31% for three weeks before settling at 5–6%. In Embody's worst week, 9% of calls were answered within 30 seconds against an 80% target and 36% abandoned (46% on the worst day).</li>
+    <li><b>What comes next.</b> Five automation initiatives are modeled to save about $5.7M a year by June 2027 at today's demand, about $10.5M if demand grows with finance's plan (+86% by December); with that growth, cost rises 27% while demand rises 86%. At today's demand: voice self-service $1.8M, AI QA $1.6M, Code Yellow email AI $1.2M, chat bot $0.6M, back-office automation $0.5M.</li>
+    <li><b>By January 1.</b> Pod model fully live. 100% AI QA scoring on voice, chat, and email. Voice self-service on every major brand. Agents on the largest book see the patient's journey and likely reason before hello. Save desk piloting with a measured save rate.</li>
+    <li><b>Beyond cost.</b> Two revenue levers start this quarter: a save desk for cancel-intent contacts (modeled floor about $2.2M a year) and refund integrity against about $5M a year of leakage already surfaced. Winback has relaunched; the 2025 pilot saved 59% of lapsed patients worked, and each 1,000 worked a month is modeled at $2.6–5.3M a year.</li>
+    <li><b>Still open.</b> Chat answer speed (30–37% of Embody chats within 30 seconds against an 80% target); chat agents are being added now. August spend actuals from finance. The vendor contract review, starting with the largest vendor.</li>
+    <li><b>Risks.</b> Demand can outrun the AI ramps, as August showed; capacity triggers now sit on the forecast. One bad automated experience costs more than ten good ones earn, so deflection is counted net of re-contacts, guardrails fail closed, and AI interactions get QA-scored like humans. Much of this was built by hand, fast; the operations hire and documentation make it durable.</li>
+  </ul>
+  <p class="src">Sources: Amazon Connect · Zoho Desk · vendor headcount sheets · finance BPO expense analyses · PS cost model. Weekly detail in the appendix.</p>
+
+  <figure>
+    <figcaption><span><b>Early July → early September</b> · change from the week of Jul 20 to the week of Aug 31 (spend: June → July)</span></figcaption>
+    <svg class="chart" id="c-tradeoff" viewBox="0 0 860 260" role="img" aria-label="Growth in volume, agent-handled contacts, productivity, headcount, and spend"></svg>
+    <p class="src">Weekly contacts, all channels. Agents = inbound-only counts at the three front-line vendors, early July vs Sep 1 (appendix A1). Spend = Patient Services vendor spend, June to July (August to follow). Handled without an agent: under 1% → 15% of inbound.</p>
+  </figure>
+
+  <figure>
+    <figcaption><span><b>Where the savings come from</b> · annual savings by June 2027, $M, compared with keeping automation at August's level</span>
+      <span class="legend"><span><i style="background:var(--cb)"></i>Voice self-service → 30%</span><span><i style="background:var(--human)"></i>AI QA: fewer repeats, shorter handles</span><span><i style="background:var(--ai)"></i>Code Yellow email AI → 60%</span><span><i style="background:var(--v2)"></i>Chat bot → 30%</span><span><i style="background:var(--g1)"></i>Back-office automation</span></span></figcaption>
+    <svg class="chart" id="c-savings" viewBox="0 0 860 240" role="img" aria-label="Annual modeled savings by initiative at today's demand and at plan growth"></svg>
+    <p class="src">PS cost model. Top bar holds demand at August 2026; bottom bar grows it with finance's plan (+86% by December 2026, flat through 2027). AI QA = vendor-cost portion of the Level AI case only; QA staffing, team-lead time, refund integrity, and retention sit outside this chart.</p>
+  </figure>
+</section>
+
+<!-- ============ APPENDIX ============ -->
+<details>
+  <summary>Appendix — definitions, vendor detail, weekly detail, open confirmations, sources</summary>
+  <h3>A0 · Reference charts</h3>
+  <figure>
+    <figcaption><span><b>Where inbound calls ended, per week, all clients</b> · Jul 20 – Sep 6</span>
+      <span class="legend"><span><i style="background:var(--human)"></i>Reached an agent</span><span><i style="background:var(--ai)"></i>Handled without an agent</span><span><i style="background:var(--cb)"></i>Took a callback</span><span><i style="background:var(--g1)"></i>Abandoned or hung up</span><span><i style="background:var(--g3)"></i>Junk / robocalls</span></span></figcaption>
+    <svg class="chart" id="c-voice" viewBox="0 0 860 320" role="img" aria-label="Weekly inbound calls by outcome"></svg>
+    <p class="src">Amazon Connect. Callback requesters are served later on a return call. Full outcome breakdown in the appendix.</p>
+  </figure>
+  <figure>
+    <figcaption><span><b>Patient Services vendor spend by vendor, Jan – Jul 2026</b> · $M · label = share of revenue (Jan–Jun)</span>
+      <span class="legend"><span><i style="background:var(--v1)"></i>Response</span><span><i style="background:var(--v2)"></i>Kirby / NexVas</span><span><i style="background:var(--v3)"></i>Narith · Booth · Peru</span><span><i style="background:var(--cb)"></i>TTEC (contracted from May)</span></span></figcaption>
+    <svg class="chart" id="c-spend" viewBox="0 0 860 300" role="img" aria-label="Monthly Patient Services vendor spend by vendor"></svg>
+    <p class="src">Finance vendor actuals excluding the Fridays/Thrive line. June–July on an operational basis (TTEC service in the month worked; Narith kept in the series after finance moved it to another P&amp;L line). Detail: appendix A5.</p>
+  </figure>
+<figure>
+    <figcaption><span><b>Front-line vendor agents, three snapshots</b> · May 13 · Jul 16 · Sep 1</span>
+      <span class="legend"><span><i style="background:var(--v3)"></i>May 13</span><span><i style="background:var(--v2)"></i>Jul 16</span><span><i style="background:var(--v1)"></i>Sep 1</span></span></figcaption>
+    <svg class="chart" id="c-hc" viewBox="0 0 860 260" role="img" aria-label="Front-line agents by vendor at three dates"></svg>
+    <p class="src">May 13 = BPO org chart v3 · Jul 16 = Global Master Roster · Sep 1 = per-BPO rosters of record (three front-line vendors; NextVas and Booth are not on the Sep 1 roster). Whole people.</p>
+  </figure>
+<figure>
+    <figcaption><span><b>Chat sessions per week, Embody + MedVi</b> · Jul 20 – Sep 6</span>
+      <span class="legend"><span><i style="background:var(--human)"></i>Reached an agent</span><span><i style="background:var(--ai)"></i>Resolved by bot</span><span><i style="background:var(--g1)"></i>Abandoned in queue</span><span><i style="background:var(--g3)"></i>Ended before queue</span></span></figcaption>
+    <svg class="chart" id="c-chat" viewBox="0 0 860 300" role="img" aria-label="Weekly chat sessions by outcome"></svg>
+    <p class="src">Client-attributed chat only (Embody widget + MedVi queue); the shared general chat queue (~7–9k agent chats a week) is excluded for lack of client attribution. "Ended before queue" = sessions that left after a bot authentication failure, outside staffed hours, or mid-flow.</p>
+  </figure>
+
+
+
+  <h3>A1 · Definitions and scope</h3>
+  <ul class="b">
+    <li><b>Inbound calls</b> (weekly funnel) = inbound legs deduplicated by contact. Outcomes: reached an agent (agent-connected); self-served, verified (the call carries an order-status-answered or completion marker); AI lane ended call, unverified (the AI voice lane stamped "complete" and disconnected; a 12-hour re-contact audit on the Aug 31–Sep 5 cohort found 75% of these callers called back, 66% for the same need, versus 14% / 13% after an agent conversation, so this slice is credited at one-third in the net figures and not claimed on the chart); took a callback (caller accepted a callback offer; the return call is a separate outbound leg and is not shown); abandoned in queue; hung up in menu / message / error (left after more than 30 seconds in the menu, heard a closed-hours or redirect message the flow then ended — median 16 seconds, almost all non-Embody — or hit a system error prompt); junk (telecom cancels and hang-ups within 30 seconds — misdials and robocalls). Before Aug 10 no self-service path existed beyond a small order-status script, which is why the verified segment is a few hundred calls a week in July. <b>Monthly offered</b> (247k / 536k) counts every contact including no-agent legs, which is why it exceeds the weekly totals summed.</li>
+    <li><b>Email received</b> = tickets created in the client patient inboxes in the week; <b>human-answered</b> = tickets receiving a first human reply in the week; <b>human replies</b> = all outgoing human replies (≈1.6 per ticket, falling to ~1.0 on Embody as chat took the back-and-forth).</li>
+    <li><b>AI resolution (email)</b> = an inbound-email ticket carrying the Code Yellow dashboard's HeyRevia close timestamp, i.e. closed by the AI (the Code Yellow team's own "AI resolutions" definition, from the "Code Yellow All Tickets" table in Zoho Analytics). <b>Net</b> excludes tickets the patient later reopened by replying on the thread (34–39% of AI closes in Aug). A random sample (n=120, Aug 18) found 88% of AI-closed patient tickets carried an AI-authored reply.</li>
+    <li><b>AI share of inbound (37–39%, late Aug)</b>: two measurements agree — the cost model's planning coefficient (1 − human answers ÷ inbound on the email-brain feed) and the direct first-party count (AI-closed tickets ÷ inbound email created, by week: 22% wk Aug 10, 33% wk Aug 17, 37% wk Aug 24).</li>
+    <li><b>Chat sessions</b> = chat contacts started from the Embody widget or routed to the MedVi chat queue (the shared general chat queue, ~7–9k agent chats a week, has no client attribution and is excluded). Resolved by bot = journey stage "deflected" or "deflected silent"; net deflection subtracts same-person returns within 12 hours on the same topic. "Ended before queue" = sessions that ended after a bot authentication failure, outside staffed hours, or mid-flow without enqueueing.</li>
+    <li><b>Chat concurrency</b> = 2 sessions per agent on the TTEC and Response chat routing profiles, 1 on Narith (Aug 14 routing configuration). Throughput per agent-hour has not yet been measured for Embody chat; the "roughly twice" claim is the configuration, not a measurement.</li>
+    <li><b>Why deflection savings are less than linear</b>: the AI absorbs the quickest contacts first, so residual human mail and calls are harder. Email throughput is modeled to glide from 2.4 to 2.0 replies per hour and residual call handle time drifts up; the cost model carries this (+$0.93M of 2027 cost vs an uncorrected model). Planning coefficient for AI email share: ~10% (Jul) → 37–39% (late Aug) → 55% (Dec) → 60% ceiling (Jun 2027), since ~48% of inbound needs human escalation today.</li>
+    <li><b>Should-cost</b> = the demand-driven model priced at planning-standard occupancy (65%) and shrinkage (15%) using measured handle times and contract/derived rates. Actual minus should-cost is the efficiency premium, not model error. The <b>$5.28 per subscriber</b> is August's modeled true cost (incl. TTEC, excl. the Fridays entry) divided by June's active-subscriber count; a September actual-cost per subscriber needs finance's August invoices.</li>
+    <li><b>Front-line agents</b> = reps on the three voice/chat/email vendors' rosters (TTEC, Narith, Response). NextVas works in the patient CRM (empaneled care) and Booth is outside the surge scope; both appear only in the 5-vendor totals. Headcounts are whole people. <b>Inbound-only counts on a single basis</b> (excluding retention, back office, refund ops, VPX, Day 0 for Response; PAMS and prior auth for Narith; temp QA/trainer for TTEC; only agents with a start date before Sep 1): Response 484 (Jul 6 headcount sheet) → 662 (Sep 1 roster); Narith 192 (June business review) → 293 (Sep 1 roster); TTEC 174 (start of July, per Ryan) → 444 (Sep 1 roster); total 850 → 1,399 (+65%). Contacts handled per inbound agent per week: 56,358 ÷ 850 = 66 (week of Jul 20) → 145,139 ÷ 1,399 = 104 (week of Aug 24).</li>
+    <li><b>Patient ratings</b> = Amazon Connect post-call surveys on a 1–5 scale. "Representative Satisfaction" is the agent rating and "Call Experience" the call rating. Embody: 5.0k–9.8k surveys a week, Jul 27 – Sep 6; agent rating 4.41–4.53, call experience 4.13–4.31.</li>
+    <li><b>Live</b> = in production today. <b>Staged</b> = built or decided, not yet in production.</li>
+  </ul>
+
+  <h3>A2 · Weekly funnel detail by channel</h3>
+  <div class="tablewrap">
+  <table id="t-funnel">
+    <thead><tr><th>Per week, all channels</th><th>Jul 20–26</th><th>Jul 27–Aug 2</th><th>Aug 3–9</th><th>Aug 10–16</th><th>Aug 17–23</th><th>Aug 24–30</th><th>Aug 31–Sep 6</th></tr></thead>
+    <tbody></tbody>
+  </table>
+  </div>
+  <p class="src">Voice = inbound legs excluding junk/robocalls (Amazon Connect); email = tickets created in client patient inboxes (Zoho Desk); chat = Embody + MedVi sessions (Amazon Connect). Resolved without an agent, net = verified IVR self-service + AI-lane completions credited at their measured 34% durable rate + chat bot resolutions net of 12-hour same-topic returns + AI email resolutions net of patient reopens; gross = the same before those adjustments. "Reached an agent" = agent-connected calls and chats + human-answered email tickets. Remainder = abandoned, callbacks (served later), hung up in menu or on a message, ended before queue, unverified AI-lane completions, or email still open / closed without reply.</p>
+  <div class="tablewrap">
+  <table>
+    <thead><tr><th>Voice (inbound legs)</th><th>Jul 20–26</th><th>Jul 27–Aug 2</th><th>Aug 3–9</th><th>Aug 10–16</th><th>Aug 17–23</th><th>Aug 24–30</th><th>Aug 31–Sep 6</th></tr></thead>
+    <tbody id="t-voice"></tbody>
+  </table>
+  </div>
+  <div class="tablewrap">
+  <table>
+    <thead><tr><th>Email (client inboxes)</th><th>Jul 20–26</th><th>Jul 27–Aug 2</th><th>Aug 3–9</th><th>Aug 10–16</th><th>Aug 17–23</th><th>Aug 24–30</th><th>Aug 31–Sep 6</th></tr></thead>
+    <tbody id="t-email"></tbody>
+  </table>
+  </div>
+  <div class="tablewrap">
+  <table>
+    <thead><tr><th>Chat (Embody + MedVi)</th><th>Jul 20–26</th><th>Jul 27–Aug 2</th><th>Aug 3–9</th><th>Aug 10–16</th><th>Aug 17–23</th><th>Aug 24–30</th><th>Aug 31–Sep 6</th></tr></thead>
+    <tbody id="t-chat"></tbody>
+  </table>
+  </div>
+  <div class="tablewrap">
+  <table>
+    <thead><tr><th>Embody by channel (inbound per week)</th><th>Aug 3–9</th><th>Aug 10–16</th><th>Aug 17–23</th><th>Aug 24–30</th></tr></thead>
+    <tbody>
+      <tr><td>Calls (inbound legs, excl. junk)</td><td>59,801</td><td>60,923</td><td>57,366</td><td>55,776</td></tr>
+      <tr><td>Emails received</td><td>36,290</td><td>38,109</td><td>31,348</td><td>22,676</td></tr>
+      <tr><td>Chat sessions</td><td>0</td><td>24,600</td><td>43,479</td><td>71,858</td></tr>
+      <tr class="tot"><td>Total contacts</td><td>96,091</td><td>123,632</td><td>132,193</td><td>150,310</td></tr>
+      <tr class="sub"><td>Chat share of total</td><td>0%</td><td>20%</td><td>33%</td><td>48%</td></tr>
+      <tr class="sub"><td>Email replies per ticket</td><td>1.36</td><td>1.13</td><td>0.98</td><td>0.99</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3 style="margin-top:22px">A2b · Patients and demand, five largest clients (Embody, MedVi, AltRx, Trinity, Elixa)</h3>
+  <div class="tablewrap">
+  <table>
+    <thead><tr><th style="text-align:left">Week</th><th>New signups</th><th>Enrolled (cumulative)</th><th>Active, signed up in prior 90 days</th><th>Contacts (calls offered + emails + chats)</th><th>Per 100 active patients</th></tr></thead>
+    <tbody>
+      <tr><td style="text-align:left">Jul 27–Aug 2</td><td>79,078</td><td>901,988</td><td>278,679</td><td>88,356</td><td>32</td></tr>
+      <tr><td style="text-align:left">Aug 3–9</td><td>78,561</td><td>980,549</td><td>349,918</td><td>132,107</td><td>38</td></tr>
+      <tr><td style="text-align:left">Aug 10–16</td><td>73,574</td><td>1,054,123</td><td>416,605</td><td>163,395</td><td>39</td></tr>
+      <tr><td style="text-align:left">Aug 17–23</td><td>58,840</td><td>1,112,963</td><td>469,212</td><td>160,689</td><td>34</td></tr>
+      <tr><td style="text-align:left">Aug 24–30</td><td>62,183</td><td>1,175,146</td><td>525,880</td><td>157,769</td><td>30</td></tr>
+      <tr><td style="text-align:left">Aug 31–Sep 6</td><td>56,912</td><td>1,232,058</td><td>577,157</td><td>175,563</td><td>30</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="src">Healthie user records (person-level, deduplicated by email within each client's Healthie organizations; dated by earliest record), cumulative as of each week end; Jul 26 baseline from the same series. Contacts here follow the command center's per-patient definition (calls offered to a queue + emails received + chat sessions), which excludes calls handled in the IVR and junk, so it runs below the all-client inbound totals used elsewhere. Clients without a Healthie organization (LeanMeds, NextMeds, XMD, Thrive, SnagRx) are excluded from both columns. Embody: 102,455 → 395,263 enrolled; 31–41 contacts per 100 enrolled per week.</p>
+
+  <h3>A3 · Operating reset — detail behind Slide 3</h3>
+  <ul class="b">
+    <li><b>Pods</b>: Anchor (strategic/platinum), Growth (gold/silver), Launch (bronze, Launchpad, and brick-and-mortar clients; new-client implementation); roles per pod = client owner, vendor team lead, agents, escalation specialists. Announced Sep 1–3, go-live Sep 21. Operational Excellence engine: training &amp; client launch, billing &amp; retention, workforce management &amp; QA; Director-level hire in final panels.</li>
+    <li><b>Workforce</b>: ~500 vendor heads removed May–July (productivity-driven, per the PS leadership handoff); one vendor moved to CRM-based empaneled care only; one taken out of surge scope. Contact-center platform ownership centralized (Amazon Connect transition co-owned with Product; 30-day readiness gate Sep 23).</li>
+    <li><b>Vendor visibility</b>: roster of record for every vendor rep (2,602 reps, Jul 16), refreshed daily for the three front-line vendors with each rep's actual client work cross-checked against contact records. Native vendor attribution in Amazon Connect.</li>
+    <li><b>Cost model</b>: patients → contacts → hours → cost, reconciled to P&amp;L monthly. TTEC's rate contract-verified (SOW banded card); the largest vendor's rate card pending. Billed-vs-worked: implied billed hours ~245k/mo vs 191k logged in and 70k available-plus-on-contact; occupancy 49% vs a 65% planning standard.</li>
+    <li><b>Demand hygiene</b>: 5,073 duplicate email tickets already resolved by phone or chat closed (Aug 6–18); a system-generated ticket firehose (150k identity-less shells) diagnosed with a dedupe runbook.</li>
+    <li><b>Quality</b>: AI QA case 2.4× cost-only, 3.8× with retention upside. Coaching themes from 103 escalations (May 23–Jul 22): scheduling/visit-type errors, wrong information, billing; repeat-agent identification. Refund audit: ~$416k/mo core with no documented justification, ~22% preventable or undocumented. Journey standards adopted from Code Yellow: payment → consult 3 business days, consult → prescription 16 business hours, consult → ship 5 business days. Baseline CSAT on the largest book 4.25/5 (n=12,922, Aug); first-contact resolution ~58–60% vs ~70% industry.</li>
+  </ul>
+
+  <h3>A4 · Vendor detail (measured Jul 27 – Aug 23 unless noted)</h3>
+  <div class="tablewrap">
+  <table>
+    <thead><tr><th>Vendor</th><th>Voice handled (28d)</th><th>Voice AHT (min)</th><th>Occupancy</th><th>Online hrs/mo</th><th>Available + on-contact hrs/mo</th><th>Implied billed hrs/mo</th><th>Rate basis</th></tr></thead>
+    <tbody>
+      <tr><td>Response (RSA)</td><td>141,172</td><td>8.6</td><td>49%</td><td>191,480</td><td>69,897</td><td>244,706</td><td class="note">$5.87/hr derived from invoices; contract rate card not yet pulled. ~38% of roster is back-office (email, refunds, QA) not visible in Connect.</td></tr>
+      <tr><td>TTEC</td><td>79,376</td><td>11.2</td><td>84%</td><td>37,660</td><td>21,119</td><td>—</td><td class="note">$10/hr blend, contract-verified (SOW banded card). Not on the P&amp;L BPO line; GL location open.</td></tr>
+      <tr><td>Narith</td><td>51,854</td><td>9.9</td><td>62%</td><td>70,527</td><td>17,005</td><td>56,432</td><td class="note">$6.00/hr; June $339k was one-time training for 302 agents.</td></tr>
+      <tr><td>Booth</td><td>43,011 <span class="note">(incl. Fridays book)</span></td><td>20.8</td><td>28%</td><td>96,488</td><td>11,977</td><td>~5,270</td><td class="note">31 seats × $6,136/seat-month; Connect group mixes OpenLoop and Fridays staff.</td></tr>
+      <tr><td>Kirby / NexVas</td><td>9,183</td><td>5.7</td><td>n/m</td><td>6,306</td><td>745</td><td>144,128</td><td class="note">~880 agents × $772/agent-month; production is CRM-side, not Connect-visible.</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3>A5 · Monthly spend detail, Jan – Jul 2026 ($)</h3>
+  <p class="src" style="margin-top:0">Patient Services does not count the Fridays/Thrive offshore line as its spend. The first table is finance's official BPO P&amp;L line for reference; PS spend = that line minus the Fridays/Thrive row, with June–July on an operational basis (second table).</p>
+  <div class="tablewrap">
+  <table>
+    <thead><tr><th>Vendor (official BPO P&amp;L line)</th><th>Jan</th><th>Feb</th><th>Mar</th><th>Apr</th><th>May</th><th>Jun</th><th>Jul</th></tr></thead>
+    <tbody>
+      <tr><td>Response BPO</td><td>1,111,875</td><td>1,900,405</td><td>2,028,520</td><td>2,224,385</td><td>2,011,790</td><td>1,436,765</td><td>1,281,166 <span class="note">(bills 941,944 + accrual 339,222)</span></td></tr>
+      <tr><td>Kirby Capital + Nextvas</td><td>804,916</td><td>701,836</td><td>742,067</td><td>697,345</td><td>703,674</td><td>679,635</td><td>692,164</td></tr>
+      <tr><td>TTEC</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>459,385 <span class="note">(first month on the line; incl. May–Jun catch-up)</span></td></tr>
+      <tr><td>Narith</td><td>0</td><td>207,519</td><td>294,492</td><td>376,890</td><td>0</td><td>338,592</td><td>0 <span class="note">(moved to "Customer Support – Patients": 367,316)</span></td></tr>
+      <tr><td>Booth and Partners</td><td>78,032</td><td>106,608</td><td>152,990</td><td>−152,990</td><td>162,963</td><td>190,212</td><td>176,272</td></tr>
+      <tr><td>OpenLoop Peru (BPO-scope share)</td><td>64,863</td><td>65,256</td><td>65,404</td><td>63,914</td><td>64,865</td><td>67,181</td><td>69,106</td></tr>
+      <tr><td>Fridays / Thrive offshore (JE)</td><td>196,122</td><td>108,981</td><td>291,811</td><td>905,520</td><td>666,206</td><td>1,374,330</td><td>238,100 <span class="note">(unexplained "I.S Activity" entry)</span></td></tr>
+      <tr><td>Other</td><td>0</td><td>5,769</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+      <tr class="tot"><td>Official P&amp;L total</td><td>2,255,808</td><td>3,096,374</td><td>3,575,284</td><td>4,115,063</td><td>3,609,498</td><td>4,086,714</td><td>2,916,191</td></tr>
+      <tr class="tot"><td>PS vendor spend (excl. Fridays; Jun–Jul operational basis)</td><td>2,059,686</td><td>2,987,393</td><td>3,283,473</td><td>3,209,543</td><td>2,943,292</td><td>2,987,089</td><td>3,190,058</td></tr>
+      <tr><td>Budget / latest reforecast</td><td colspan="6" class="note">—</td><td>1,888,465 / 4,610,723</td></tr>
+      <tr><td>Revenue ($M, finance plan actuals)</td><td>116.5</td><td>110.6</td><td>121.7</td><td>120.5</td><td>116.5</td><td>101.5</td><td class="note">plan 111.3 (not actual)</td></tr>
+      <tr><td>PS vendor spend as % of revenue</td><td>1.8%</td><td>2.7%</td><td>2.7%</td><td>2.7%</td><td>2.5%</td><td>2.9%</td><td>—</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="tablewrap">
+  <table>
+    <thead><tr><th>July normalized: vendor cost of the month's operations (PS scope)</th><th>$</th><th>Note</th></tr></thead>
+    <tbody>
+      <tr><td>Response: bills + a $329k week coded to the Pharmacy department + month-end accrual</td><td>1,610,201</td><td class="note">June 1,436,765; spend up 12% while measured voice fell 105.5k → 64.7k contacts. Invoices bill ~800 FTE × ~170 hrs ≈ 275k hrs vs ~11k measured voice handle-hours</td></tr>
+      <tr><td>TTEC July service (accrual; the official line carries May–Jun catch-up instead)</td><td>275,000</td><td class="note">Model estimate $220–360k validated; June actual 274,705</td></tr>
+      <tr><td>Kirby Capital + Nextvas</td><td>692,164</td><td class="note">CRM/empaneled work; no independent work measure</td></tr>
+      <tr><td>Booth &amp; Partners</td><td>176,272</td><td class="note"></td></tr>
+      <tr><td>OpenLoop Peru</td><td>69,106</td><td class="note"></td></tr>
+      <tr><td>Narith (recurring service, on the "Customer Support – Patients" line)</td><td>367,316</td><td class="note">Not one-time training as June's entry was labeled</td></tr>
+      <tr class="tot"><td>Normalized total</td><td>3,190,058</td><td class="note">Excludes the unexplained $238k Thrive entry</td></tr>
+      <tr><td>Model should-cost at 65% occupancy / 15% shrinkage, incl. TTEC and a ~390-head back-office block ($389k)</td><td>2,174,662</td><td class="note">Cost model v1.7</td></tr>
+      <tr class="tot"><td>Premium vs should-cost</td><td>1,015,396</td><td class="note">32% of normalized actual; June 28%; H1 ≈$4.4M (a floor). Model view: the back-office block is a seeded estimate pending measurement and the largest vendor's rate is not contract-verified — not for board use until both land</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="src">Source: finance's corrected July 2026 BPO Expense Analysis (invoice and department level, received Sep 8) reconciled in the PS cost model v1.7. Open questions with finance: the $238k Thrive entry and where the ~$1.37M/mo Fridays treatment went; whether the $329k Response invoice coded to Pharmacy was intentional; the TTEC July accrual departmented to Engineering.</p>
+
+  <h3>A6 · Numbers to confirm before the deck is final</h3>
+  <ul class="b">
+    <li><span class="flag">finance</span> August actual BPO invoices by vendor (July received Sep 8), plus answers to the three July questions in A5: the $238k Thrive entry, the $329k Response invoice coded to Pharmacy, and the TTEC accrual departmented to Engineering.</li>
+    <li><span class="flag">finance</span> Revenue figures behind the % of revenue line (6+6 Revised Base Plan as captured Aug 25); align to whatever the board deck uses.</li>
+    <li><span class="flag">vendor mgmt</span> Response's contract rate card (the $5.87/hr is invoice-derived) before the billed-vs-worked gap is stated as over-billing rather than unmodeled back-office work.</li>
+    <li><span class="flag">Code Yellow</span> Confirm with the Code Yellow team that the HeyRevia close timestamp means "AI replied and closed" (not "closed without reply") and whether reopened AI tickets are re-handled by humans; the pack nets out reopens as the conservative reading.</li>
+    <li><span class="flag">chat</span> AltRx chat launch date and scope; Embody chat throughput per agent-hour (concurrency is configured at 2 but not yet measured as realized throughput).</li>
+    <li><span class="flag">voice AI</span> The AI voice lane's "complete" outcome (9.7k calls in the week of Aug 24) needs a resolution audit before any of it is presented as deflection: 66% same-need re-contact within 12 hours and a separate investigation into short "complete" calls that end without an answer. The pack credits one-third; a board slide should use the verified figure alone until the audit lands.</li>
+    <li><span class="flag">staffing</span> The "~100 heads added during the launch weekend" figure comes from the Jul 11–12 incident notes; confirm against vendor onboarding records.</li>
+    <li><span class="flag">voice AI</span> The intent-capture rate (about 85% of Embody and AltRx calls) is the Day-60 brief's figure. The command-center pipeline shows a lower fill for the week of Sep 1, when Embody's IVR degraded around Sep 3, and still flags AltRx as not intent-capable. Confirm the basis before it goes on a slide.</li>
+    <li><span class="flag">revenue</span> The save-desk floor ($2.2M a year) and winback sizing are modeled in the Day-60 brief on a measured $252 per patient-month at 73% gross margin; the 2025 winback pilot worked 731 lapsed patients (59% blended save rate, 29% on the conservative cut). Revenue motions on client-branded books need client buy-in.</li>
+  </ul>
+
+  <h3>A7 · Sources (Patient Services records)</h3>
+  <ul class="b">
+    <li>Amazon Connect contact trace records (BI lake, Athena), queried Sep 4 — weekly voice outcome funnel and chat session funnel, Jul 20 – Sep 4.</li>
+    <li>Command-center weekly pipeline (Connect + Zoho Desk) — weekly answered/abandonment by client and vendor, email received / human-answered / replies, Embody channel mix.</li>
+    <li>Code Yellow Executive Dashboard (Zoho Analytics, Patient Services BI; "Code Yellow All Tickets" query table), queried Sep 8 — inbound email created, AI resolutions (HeyRevia close timestamp), reopen flags, classification times by week.</li>
+    <li>PS BPO cost model v1.6 workbook and coefficients pack (Aug 25 – Sep 8) — should-cost, vendor hours, rates, deflection drivers, Jan–Jun actuals, July invoice-level tie-out; finance's June and July 2026 BPO Expense Analyses.</li>
+    <li>BPO org chart v3 (May 13), Global Master Roster (Jul 16), per-BPO rosters of record (Sep 1); Embody launch sizing and incident notes (Jul 10–12); chat routing configuration (Aug 14 design).</li>
+    <li>"Patient Services Org Redesign 09.2026" deck; PS reporting-lines sheet (Aug 31); Amazon Connect transition plan deck (Aug 17).</li>
+    <li>Level AI business case (T-082); BPO coaching-theme analysis (May 23 – Jul 22); refund-after-shipment audit (Aug 31); Code Yellow rebuild overview and email-classifier taxonomy (Jul 20).</li>
+    <li>"On Deck — Patient Support" leadership overview (Aug 19) and Patient Services Day-60 brief (Sep 8 version) — Embody and AltRx ramp figures, crisis-week service levels, Code Yellow classification, intent capture, revenue levers, risks; Amazon Connect post-call surveys (BI lake), Jul 27 – Sep 6 — patient ratings.</li>
+  </ul>
+</details>
+
+<footer>Patient Services · board deck content pack · data through Sep 6, 2026 · internal · aggregates only, no patient identifiers</footer>
+</div>
+
+<script>
+(function(){
+  const weeks=['Jul 20–26','Jul 27–Aug 2','Aug 3–9','Aug 10–16','Aug 17–23','Aug 24–30','Aug 31–Sep 6'];
+  // VOICE funnel (Athena, inbound legs deduped) — all clients
+  const vAns=[31440,32395,42225,63337,73726,74722,77619];
+  const vSelfAll=[1727,1896,2416,3870,8419,13705,10925];          // flow-ended, never queued (proxy bucket)
+  const vVer=[553,712,882,2112,2410,1067,3220];                  // order-status answered / completion marker present
+  const vAI=[0,0,0,0,3764,9747,2720];                            // AI lane stamped "complete" (unverified)
+  const vMsg=vSelfAll.map((s,i)=>s-vVer[i]-vAI[i]);         // closed-hours / redirect message ends (median 16 s)
+  const vSelf=vVer;
+  const AI_DURABLE=0.337;                                   // 1 − 66.3% same-need re-contact within 12 h
+  const vAInet=vAI.map(v=>Math.round(v*AI_DURABLE));
+  const vCb=[10331,18393,20209,10390,6075,5554,5193];
+  const vAbQ=[4889,6281,17701,17872,9753,5056,6232];
+  const vGave=[3315,5969,10569,7852,8598,10612,7059], vErr=[1247,3885,5931,1803,430,119,191];
+  const vHang=vGave.map((g,i)=>g+vErr[i]+vMsg[i]);
+  const vJunk=[5572,6965,9981,10547,10689,10172,9780];
+  const vTot=vAns.map((_,i)=>vAns[i]+vSelfAll[i]+vCb[i]+vAbQ[i]+vGave[i]+vErr[i]+vJunk[i]);
+  // EMAIL (Zoho Desk)
+  const rec=[20786,34287,54885,61651,57162,47422,49628];
+  const tix=[17389,30390,42516,34579,26077,17879,16027];
+  const rep=[32277,53551,63304,48044,36556,25821,21808];
+  const ai=[0,0,4,11945,22092,15725,19255];                      // Code Yellow dashboard: inbound email closed by HeyRevia AI, by close week
+  const aiNet=[0,0,3,7829,13375,10032,11798];                     // minus patient reopens (34.4% / 39.0% / 34.4% measured per week)
+  // CHAT (Athena, Embody + MedVi)
+  const cTot=[7551,7828,8442,35406,54806,81456,105869];
+  const cAns=[7529,7750,8403,30237,40262,53861,67948];
+  const cBot=[0,0,0,0,3353,10330,15182];
+  const cAbQ=[22,78,39,964,1441,1316,1903];
+  const cPre=cTot.map((t,i)=>t-cAns[i]-cBot[i]-cAbQ[i]);
+  const cBotNet=[0,0,0,0,2458,7529,11141];                        // deflected × (1−36.4%) + silent × (1−17.3%) same-topic 12 h returns
+  const fmt=n=>n.toLocaleString('en-US');
+  const k=n=>n>=1000?(n/1000).toFixed(n>=10000?0:1)+'k':String(n);
+  const pct=(a,b)=>b?Math.round(100*a/b)+'%':'—';
+  const cssv=v=>getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+  const NS='http://www.w3.org/2000/svg';
+  function el(tag,attrs,text){const e=document.createElementNS(NS,tag);for(const a in attrs)e.setAttribute(a,attrs[a]);if(text!=null)e.textContent=text;return e;}
+
+  function stacked(o){
+    const svg=document.getElementById(o.svgId); if(!svg) return;
+    const W=860,H=+svg.getAttribute('viewBox').split(' ')[3];
+    const m={t:40,r:16,b:40,l:52};
+    const iw=W-m.l-m.r, ih=H-m.t-m.b;
+    const n=o.cats.length;
+    const totals=o.cats.map((_,i)=>o.series.reduce((s,se)=>s+(se.vals[i]||0),0));
+    let yMax=o.yMax||Math.max(...totals, ...(o.line?o.line.vals:[0]))*1.12;
+    const y=v=>m.t+ih-(v/yMax)*ih;
+    const slot=iw/n, bw=o.bw||Math.min(70,slot*0.56);
+    const ticks=o.ticks||4;
+    o.series.forEach((se,j)=>{ if(se.pattern){
+      const pid=o.svgId+'-hatch'+j; se._fill='url(#'+pid+')';
+      const defs=el('defs',{}); const p=el('pattern',{id:pid,patternUnits:'userSpaceOnUse',width:6,height:6});
+      p.appendChild(el('rect',{width:6,height:6,fill:cssv(se.color),opacity:0.22}));
+      p.appendChild(el('path',{d:'M0,6 L6,0',stroke:cssv(se.color),'stroke-width':1.6}));
+      defs.appendChild(p); svg.appendChild(defs);} });
+    for(let t=0;t<=ticks;t++){const v=yMax*t/ticks;const yy=y(v);
+      svg.appendChild(el('line',{x1:m.l,x2:W-m.r,y1:yy,y2:yy,class:t===0?'base':'grid'}));
+      svg.appendChild(el('text',{x:m.l-8,y:yy+4,'text-anchor':'end',class:'ax'},o.fmtTick?o.fmtTick(v):k(Math.round(v))));
+    }
+    o.cats.forEach((c,i)=>{
+      const cx=m.l+slot*i+slot/2;
+      if(o.grouped){
+        const g=o.series.length; const gw=bw; const start=cx-(g*gw+(g-1)*3)/2;
+        o.series.forEach((se,j)=>{
+          const v=se.vals[i]; if(v==null) return;
+          const x=start+j*(gw+3); const yy=y(v); const h=m.t+ih-yy;
+          const r=el('rect',{x,y:yy,width:gw,height:Math.max(h,0),fill:cssv(se.color)});
+          r.appendChild(el('title',{},`${c} · ${se.name}: ${fmt(v)}`)); svg.appendChild(r);
+          svg.appendChild(el('text',{x:x+gw/2,y:yy-5,'text-anchor':'middle',class:'val'},fmt(v)));
+        });
+      } else {
+        let acc=0;
+        o.series.forEach((se,j)=>{
+          const v=se.vals[i]||0; if(v<=0){return;}
+          const y0=y(acc), y1=y(acc+v); const gap=(acc>0?2:0); const h=Math.max(y0-y1-gap,0.5);
+          const r=el('rect',{x:cx-bw/2,y:y1+gap,width:bw,height:h,fill:se._fill||cssv(se.color)});
+          r.appendChild(el('title',{},`${c} · ${se.name}: ${fmt(v)} (${pct(v,totals[i])})`)); svg.appendChild(r);
+          if(o.segLabels && (y0-y1)>=15){
+            const lbl=se.label?se.label(i,v):(o.segPct?`${k(v)} · ${pct(v,totals[i])}`:k(v));
+            const t=el('text',{x:cx,y:(y0+y1)/2+4,'text-anchor':'middle',class:'val'},lbl);
+            t.setAttribute('style', se.dark?'fill:#fff':'fill:var(--ink)'); svg.appendChild(t);}
+          acc+=v;
+        });
+        if(o.topLabel){const lab=o.topLabel(i,acc); const lines=Array.isArray(lab)?lab:[lab];
+          lines.forEach((ln,li)=>svg.appendChild(el('text',{x:cx,y:y(acc)-6-(lines.length-1-li)*13,'text-anchor':'middle',class:li===0?'val':'ax'},ln)));}
+      }
+      svg.appendChild(el('text',{x:cx,y:H-m.b+18,'text-anchor':'middle',class:'ax'},c));
+      if(o.subCats&&o.subCats[i]){const t=el('text',{x:cx,y:H-m.b+34,'text-anchor':'middle',class:'val'},o.subCats[i]); t.setAttribute('style','fill:var(--ink-2)'); svg.appendChild(t);}
+    });
+    if(o.line){
+      const pts=o.line.vals.map((v,i)=>[m.l+slot*i+slot/2,y(v)]);
+      svg.appendChild(el('path',{d:pts.map((p,i)=>(i?'L':'M')+p[0]+','+p[1]).join(' '),fill:'none',stroke:cssv(o.line.color),'stroke-width':2,'stroke-linejoin':'round'}));
+      pts.forEach((p,i)=>{const c=el('circle',{cx:p[0],cy:p[1],r:4,fill:cssv(o.line.color),stroke:cssv('--surface'),'stroke-width':2});c.appendChild(el('title',{},`${o.cats[i]} · ${o.line.name}: ${fmt(o.line.vals[i])}`));svg.appendChild(c);
+        const last=i===o.line.vals.length-1, halo='paint-order:stroke;stroke:var(--surface);stroke-width:3px;stroke-linejoin:round;fill:var(--ink)';
+        let lx=p[0]+(o.line.dx||0), ly=o.line.below?p[1]+16:p[1]-9, anchor='middle';
+        if(o.line.below&&last){lx=p[0]-9; ly=p[1]+4; anchor='end';}
+        const lt=el('text',{x:lx,y:ly,'text-anchor':anchor,class:'val'},(o.line.fmt||k)(o.line.vals[i]));
+        if(o.line.below){lt.setAttribute('style',halo);}
+        svg.appendChild(lt);});
+    }
+  }
+
+  // Chart: recovery — answered calls, Embody highlighted, wait above, abandonment below (section 2)
+  const eW=['Jul 27–Aug 2','Aug 3–9','Aug 10–16','Aug 17–23','Aug 24–30','Aug 31–Sep 6'];
+  const abLive=['16%','31%','23%','11%','5%','6%'];             // call abandonment, live legs (appendix A2)
+  const aAsa=[403,487,458,216,83,114];                          // all-client weighted average speed of answer, seconds
+  const eAns=[9283,10355,25893,32614,32074,32577];              // Embody answered calls / wk
+  const eAsa=[1061,1553,938,409,81,128];                        // Embody weighted average speed of answer, seconds
+  const minLbl=sec=>sec>=600?`${Math.round(sec/60)} min`:`${(sec/60).toFixed(1)} min`;
+  const ansAll=vAns.slice(1), othAns=ansAll.map((v,i)=>v-eAns[i]);
+  stacked({svgId:'c-recover',cats:eW,
+    series:[{name:'Embody',vals:eAns,color:'--human',dark:true,label:(i,v)=>`${k(v)} · ${minLbl(eAsa[i])}`},{name:'All other clients',vals:othAns,color:'--g2',dark:true}],
+    segLabels:true, bw:110, yMax:90000, ticks:3, subCats:abLive.map(a=>`${a} abandoned`),
+    topLabel:(i,tot)=>[`${k(tot)} answered`,`wait ${minLbl(aAsa[i])}`]});
+
+  // Chart: deflection by channel, net stacked + re-contacts hatched (section 4)
+  const inb=vTot.map((t,i)=>t-vJunk[i]+rec[i]+cTot[i]);
+  const dVoiceNet=vVer.map((v,i)=>v+vAInet[i]);
+  const dGross=ai.map((a,i)=>a+cBot[i]+vVer[i]+vAI[i]);
+  const dNet=aiNet.map((a,i)=>a+cBotNet[i]+dVoiceNet[i]);
+  stacked({svgId:'c-deflect',cats:weeks,
+    series:[{name:'Email · Code Yellow AI (net)',vals:aiNet,color:'--ai',dark:true},{name:'Chat bot (net)',vals:cBotNet,color:'--v2',dark:true},{name:'Voice self-service (net)',vals:dVoiceNet,color:'--cb',dark:true},{name:'Re-contacted within 12 hours',vals:dGross.map((g,i)=>g-dNet[i]),color:'--g1',pattern:true}],
+    segLabels:true, bw:96, yMax:50000, ticks:5, topLabel:(i,tot)=>{const p=100*dNet[i]/inb[i]; return [`${k(dNet[i])} net`, `${p<1?'<1%':Math.round(p)+'%'} of inbound`];}});
+
+  // Chart: voice outcomes (appendix; full breakdown in the appendix table)
+  stacked({svgId:'c-voice',cats:weeks,
+    series:[{name:'Reached an agent',vals:vAns,color:'--human',dark:true},{name:'Handled without an agent',vals:vVer.map((v,i)=>v+vAI[i]),color:'--ai',dark:true},{name:'Took a callback',vals:vCb,color:'--cb',dark:true},{name:'Abandoned or hung up',vals:vAbQ.map((v,i)=>v+vHang[i]),color:'--g1',dark:true},{name:'Junk / robocalls',vals:vJunk,color:'--g3'}],
+    segLabels:true, segPct:true, bw:96, yMax:140000, ticks:7, topLabel:(i,tot)=>[`${k(tot)} calls`,`${pct(vAns[i],tot)} reached an agent`]});
+
+  // Chart: inbound volume by channel (section 1)
+  stacked({svgId:'c-volume',cats:weeks,
+    series:[{name:'Calls',vals:vTot.map((t,i)=>t-vJunk[i]),color:'--demand',dark:true},{name:'Emails',vals:rec,color:'--cb',dark:true},{name:'Chats',vals:cTot,color:'--v2',dark:true}],
+    segLabels:true, yMax:300000, ticks:4, topLabel:(i,tot)=>[`${k(tot)} contacts`, i===0?'':`${(tot/((vTot[0]-vJunk[0])+rec[0]+cTot[0])).toFixed(1)}× week of Jul 20`]});
+
+  // Chart: chat funnel
+  stacked({svgId:'c-chat',cats:weeks,
+    series:[{name:'Reached an agent',vals:cAns,color:'--human',dark:true},{name:'Resolved by bot',vals:cBot,color:'--ai',dark:true},{name:'Abandoned in queue',vals:cAbQ,color:'--g1',dark:true},{name:'Ended before queue',vals:cPre,color:'--g3'}],
+    segLabels:true, segPct:true, bw:96, yMax:110000, ticks:4, topLabel:(i,tot)=>[`${k(tot)} sessions`, i>=3?`${pct(cAns[i],tot)} to agent`:'']});
+
+  // Chart: headcount grouped
+  stacked({svgId:'c-hc',cats:['TTEC','Narith','Response (RSA)'],grouped:true,bw:64,
+    series:[{name:'May 13',vals:[150,268,1468],color:'--v3'},{name:'Jul 16',vals:[227,320,1034],color:'--v2'},{name:'Sep 1',vals:[446,382,1076],color:'--v1'}],
+    yMax:1600,ticks:4,fmtTick:v=>fmt(Math.round(v))});
+
+  // Chart: email
+  stacked({svgId:'c-email',cats:weeks,
+    series:[{name:'Human-answered tickets',vals:tix,color:'--human',dark:true},{name:'AI end-to-end closes',vals:ai,color:'--ai',dark:true}],
+    line:{vals:rec,color:'--demand',name:'Emails received'}, yMax:70000, ticks:5, segLabels:true, topLabel:(i,tot)=>ai[i]>100?`AI ${pct(ai[i],rec[i])}`:''});
+
+  // Chart: spend by vendor
+  // PS vendor spend, excluding the Fridays/Thrive line (not PS spend). Jan–May = finance vendor actuals; Jun–Jul operational basis
+  // (TTEC service in month worked: Jun 274,705 / Jul 275,000; Narith kept in series in Jul 367,316; Jul Response incl. Pharmacy-coded week + accrual).
+  const months=['Jan','Feb','Mar','Apr','May','Jun','Jul'];
+  const resp=[1111875,1900405,2028520,2224385,2011790,1436765,1610201];
+  const kirby=[804916,701836,742067,697345,703674,679635,692164];
+  const other=[142895,385152,512886,287814,227828,595985,612694];          // Narith + Booth + Peru (+ minor other)
+  const ttec=[0,0,0,0,0,274705,275000];
+  const pctRev=['1.8%','2.7%','2.7%','2.7%','2.5%','2.9%'];
+  const M=v=>'$'+(v/1e6).toFixed(v>=1e6?1:2)+'M';
+  stacked({svgId:'c-spend',cats:months,
+    series:[{name:'Response',vals:resp,color:'--v1',dark:true},{name:'Kirby / NexVas',vals:kirby,color:'--v2',dark:true},{name:'Narith · Booth · Peru',vals:other,color:'--v3'},{name:'TTEC',vals:ttec,color:'--cb',dark:true}],
+    yMax:4.0e6,ticks:4,fmtTick:v=>'$'+(v/1e6).toFixed(1)+'M',
+    topLabel:(i,tot)=>i<6?[M(tot),`${pctRev[i]} of revenue`]:[M(tot)]});
+  stacked({svgId:'c-spend-total',cats:months,
+    series:[{name:'PS vendor spend',vals:months.map((_,i)=>resp[i]+kirby[i]+other[i]+ttec[i]),color:'--spend',dark:true}],
+    yMax:4.0e6,ticks:4,fmtTick:v=>'$'+(v/1e6).toFixed(1)+'M',
+    topLabel:(i,tot)=>i<6?[M(tot),`${pctRev[i]} of revenue`]:[M(tot)]});
+
+  // ---- Combined funnel table (slide 5) ----
+  const inbound=weeks.map((_,i)=>(vTot[i]-vJunk[i])+rec[i]+cTot[i]);
+  const autoGross=weeks.map((_,i)=>vSelfAll[i]+ai[i]+cBot[i]);
+  const auto=weeks.map((_,i)=>vVer[i]+vAInet[i]+aiNet[i]+cBotNet[i]);
+  const agent=weeks.map((_,i)=>vAns[i]+tix[i]+cAns[i]);
+  const rest=weeks.map((_,i)=>inbound[i]-auto[i]-agent[i]);
+  const row=(label,vals,cls,f)=>`<tr${cls?` class="${cls}"`:''}><td>${label}</td>${vals.map(v=>`<td>${f?f(v):fmt(v)}</td>`).join('')}</tr>`;
+  const tf=document.querySelector('#t-funnel tbody');
+  tf.innerHTML=
+    row('Total inbound contacts',inbound,'tot')+
+    row('Calls (excl. junk)',vTot.map((t,i)=>t-vJunk[i]),'sub')+
+    row('Emails received',rec,'sub')+
+    row('Chat sessions',cTot,'sub')+
+    row('Resolved without an agent, net',auto,'tot')+
+    row('Voice self-service, verified',vVer,'sub')+
+    row('Voice AI-lane completions, credited at 34%',vAInet,'sub')+
+    row('Chat bot resolutions, net of returns',cBotNet,'sub')+
+    row('AI email resolutions, net of reopens',aiNet,'sub')+
+    row('Share of inbound, net',weeks.map((_,i)=>pct(auto[i],inbound[i])),'sub',v=>v)+
+    row('Same, gross (before re-contact and verification adjustments)',autoGross.map((g,i)=>`${fmt(g)} <span class="note">(${pct(g,inbound[i])})</span>`),'sub',v=>v)+
+    row('Reached an agent',agent,'tot')+
+    row('Calls answered',vAns,'sub')+
+    row('Emails human-answered',tix,'sub')+
+    row('Chats answered',cAns,'sub')+
+    row('Remainder (abandoned, callbacks, menu exits, open email)',rest,'')+
+    row('Inbound agents (nearest snapshot)',['~850','—','—','—','—','—','~1,400'],'',v=>v)+
+    row('Call abandonment (live legs)',['15%','16%','31%','23%','11%','5%','6%'],'',v=>v);
+
+  // ---- Tradeoff chart (horizontal % change bars) ----
+  (function(){
+    const svg=document.getElementById('c-tradeoff'); if(!svg) return;
+    const rows=[
+      {label:'Inbound contacts per week',from:'81k',to:'263k',pct:223,color:'--demand'},
+      {label:'Contacts handled by agents per week',from:'56k',to:'162k',pct:187,color:'--human'},
+      {label:'Inbound agents',from:'~850',to:'~1,400',pct:65,color:'--v2'},
+      {label:'Contacts handled per agent per week',from:'66',to:'116',pct:75,color:'--human'},
+      {label:'Vendor spend per month (Jun → Jul)',from:'$3.0M',to:'$3.2M',pct:7,color:'--spend'}
+    ];
+    const W=860,H=260,m={t:16,r:170,b:12,l:290}, iw=W-m.l-m.r, rowH=(H-m.t-m.b)/rows.length, maxP=240;
+    const x=p=>m.l+(p/maxP)*iw;
+    [0,50,100,150,200].forEach(t=>{svg.appendChild(el('line',{x1:x(t),x2:x(t),y1:m.t,y2:H-m.b,class:t===0?'base':'grid'}));});
+    rows.forEach((r,i)=>{
+      const y=m.t+i*rowH, bh=Math.min(26,rowH*0.6), cy=y+rowH/2;
+      svg.appendChild(el('text',{x:m.l-12,y:cy+4,'text-anchor':'end',class:'val'},r.label));
+      const rect=el('rect',{x:m.l,y:cy-bh/2,width:Math.max(x(r.pct)-m.l,2),height:bh,fill:cssv(r.color)});
+      rect.appendChild(el('title',{},`${r.label}: ${r.from} → ${r.to} (+${r.pct}%)`)); svg.appendChild(rect);
+      svg.appendChild(el('text',{x:x(r.pct)+8,y:cy+4,class:'val'},`+${r.pct}%`));
+      svg.appendChild(el('text',{x:x(r.pct)+8+(r.pct>=100?52:44),y:cy+4,class:'ax'},`${r.from} → ${r.to}`));
+    });
+  })();
+
+  // ---- Savings by initiative (cost model v1.7, Jun-27 run-rate, $M/yr; automation levers only) ----
+  (function(){
+    const svg=document.getElementById('c-savings'); if(!svg) return;
+    const names=['Voice self-service → 30%','AI QA: fewer repeats, shorter handles','Code Yellow email AI → 60%','Chat bot → 30%','Back-office automation'];
+    const colors=['--cb','--human','--ai','--v2','--g1'];
+    const rows=[{label:"Today's demand",vals:[1.79,1.62,1.15,0.64,0.47]},
+                {label:'Plan growth (+86% demand)',vals:[3.33,3.02,2.14,1.19,0.87]}];
+    const W=860,H=240,m={t:34,r:130,b:30,l:190}, iw=W-m.l-m.r, rowH=(H-m.t-m.b)/rows.length, minV=0, maxV=11;
+    const x=v=>m.l+((v-minV)/(maxV-minV))*iw;
+    [0,2,4,6,8,10].forEach(v=>{ svg.appendChild(el('line',{x1:x(v),x2:x(v),y1:m.t-6,y2:H-m.b,class:v===0?'base':'grid'})); svg.appendChild(el('text',{x:x(v),y:H-m.b+16,'text-anchor':'middle',class:'ax'},'$'+v+'M')); });
+    rows.forEach((r,i)=>{
+      const cy=m.t+i*rowH+rowH/2, bh=Math.min(34,rowH*0.62); let acc=0;
+      svg.appendChild(el('text',{x:m.l-12,y:cy+4,'text-anchor':'end',class:'val'},r.label));
+      r.vals.forEach((v,j)=>{
+        const rect=el('rect',{x:x(acc),y:cy-bh/2,width:Math.max(x(acc+v)-x(acc)-2,0),height:bh,fill:cssv(colors[j])}); rect.appendChild(el('title',{},`${names[j]}: $${v.toFixed(2)}M/yr`)); svg.appendChild(rect);
+        if(x(acc+v)-x(acc)>40) svg.appendChild(el('text',{x:(x(acc)+x(acc+v))/2,y:cy+4,'text-anchor':'middle',class:'val',style:'fill:#fff'},'$'+v.toFixed(1)+'M'));
+        acc+=v; });
+      svg.appendChild(el('text',{x:x(acc)+8,y:cy+4,class:'val'},'$'+acc.toFixed(1)+'M a year'));
+    });
+  })();
+
+  // ---- Appendix tables ----
+  const tv=document.getElementById('t-voice');
+  const vp=(arr)=>arr.map((v,i)=>`${fmt(v)} <span class="note">(${pct(v,vTot[i])})</span>`);
+  tv.innerHTML=row('Inbound calls (legs) — share of legs in parentheses',vTot,'tot')+row('Reached an agent',vp(vAns),'sub',v=>v)+row('Self-served, verified (order-status / completion marker)',vp(vVer),'sub',v=>v)+row('AI lane ended call, "complete" (unverified)',vp(vAI),'sub',v=>v)+row('Ended on a closed-hours / redirect message',vp(vMsg),'sub',v=>v)+row('Took a callback',vp(vCb),'sub',v=>v)+row('Abandoned in queue',vp(vAbQ),'sub',v=>v)+row('Hung up in menu (>30 s)',vp(vGave),'sub',v=>v)+row('System error',vp(vErr),'sub',v=>v)+row('Junk / robocalls',vp(vJunk),'sub',v=>v)+row('Reached an agent, % of non-junk',weeks.map((_,i)=>pct(vAns[i],vTot[i]-vJunk[i])),'',v=>v);
+  const te=document.getElementById('t-email');
+  const rec7=rec, tix7=tix, rep7=rep, ai7=ai;
+  te.innerHTML=row('Emails received',rec7,'tot')+row('Human-answered tickets',tix7,'sub')+row('Human replies sent',rep7,'sub')+row('AI resolutions (closed in week)',ai7,'sub')+row('AI resolutions net of reopens',aiNet,'sub')+row('AI resolutions ÷ received',rec7.map((r,i)=>(100*ai7[i]/r).toFixed(1)+'%'),'',v=>v);
+  const tc=document.getElementById('t-chat');
+  tc.innerHTML=row('Chat sessions',cTot,'tot')+row('Reached an agent',cAns,'sub')+row('Resolved by bot (gross)',cBot,'sub')+row('Abandoned in queue',cAbQ,'sub')+row('Ended before queue',cPre,'sub')+row('Embody sessions',[0,0,0,24600,43479,71858,98560],'')+row('MedVi sessions',[7551,7828,8442,10806,11327,9598,7309],'');
+})();
+</script>
